@@ -11,6 +11,7 @@ interface Result {
   golden_ikura_num: number
   ikura_num: number
   job_result: JobResult
+  members: string[]
 }
 
 interface Results {
@@ -20,6 +21,8 @@ interface Results {
 }
 
 const results: Results = ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())
+const members = new Set(results.value.results.flatMap(result => result.members))
+console.log(members)
 </script>
 
 <template>
@@ -34,7 +37,8 @@ const results: Results = ref<Results>(await (await fetch('https://api-dev.splatn
                 {{ result.job_result.is_clear ? t("job_result.is_clear") : t("job_result.is_failure") }}
               </li>
               <li class="grade">
-                Profreshional <span class="grade-point">620</span><span class="up" />
+                Profreshional <span class="grade-point">620</span>
+                <!-- <span class="up" /> -->
               </li>
               <li class="ikura-result">
                 <p class="golden-ikura">
@@ -147,26 +151,28 @@ a {
 .coop-stats-list-content.clear .job-result {
   color: #39e464;
   font-family: Splatoon1;
-  width: 90px;
+  width: 70px;
   font-size: 14px;
 }
 
 .coop-stats-list-content.failure .job-result {
   color: #ff7500;
   font-family: Splatoon1;
-  width: 90px;
+  width: 70px;
   font-size: 14px;
 }
 
 .coop-stats-list-content.clear .grade {
   color: #fff;
   font-family: Splatoon1;
+  font-size: 14px;
   flex-grow: 1;
 }
 
 .coop-stats-list-content.failure .grade {
   color: #777;
   font-family: Splatoon1;
+  font-size: 14px;
   flex-grow: 1;
 }
 
