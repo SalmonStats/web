@@ -14,7 +14,7 @@ interface Results {
   results: Result[]
 }
 
-const results: Results = ref<Results>(await (await fetch('https://api.splatnet2.com/v1/results?order=false')).json())
+const results: Results = ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())
 </script>
 
 <template>
