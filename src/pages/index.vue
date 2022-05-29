@@ -1,14 +1,4 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-
-const props = defineProps({
-  msg: String,
-})
-const name = ref('')
-function submit() {
-  console.log('Nyamo')
-}
-const router = useRouter()
 const { t } = useI18n()
 </script>
 
@@ -20,3 +10,11 @@ const { t } = useI18n()
 meta:
   layout: home
 </route>
+
+<style scoped>
+h1 {
+  font-family: Splatoon1;
+  font-size: 24px;
+  padding-bottom: 20px;
+}
+</style>
