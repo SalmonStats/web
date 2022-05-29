@@ -1,11 +1,14 @@
 @import './markdown.css';
+@import './salmonstats.css';
 
 html,
 body,
 #app {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 0 auto;
+  padding: 0 10px;
+  line-height: 1;
+  box-sizing: border-box;
+  font-family: Splatoon2;
 }
 
 html.dark {
@@ -25,8 +28,4 @@ html.dark {
   left: 0;
   width: 100%;
   height: 2px;
-}
-
-table {
-  width: 100%
 }
