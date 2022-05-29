@@ -6,3 +6,10 @@ title:
 job_result:
   is_clear: Clear!
   is_failure: Defeat
+grade:
+  profreshional: Profreshional
+  overachiver: Overachiver
+  gogetter: Go-Getter
+  parttimer: Part-Timer
+  apparentice: Apprentice
+  intern: Intern

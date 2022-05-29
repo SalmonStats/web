@@ -6,8 +6,9 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Footer: typeof import('./components/Footer.vue')['default']
-    Ranking: typeof import('./components/Ranking.vue')['default']
+    Overview: typeof import('./components/Overview.vue')['default']
     README: typeof import('./components/README.md')['default']
+    Result: typeof import('./components/Result.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

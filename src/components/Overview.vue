@@ -20,9 +20,8 @@ interface Results {
   results: Result[]
 }
 
+const iksm_session = '85d88ed05c05bf2b290d01b1c03429d7dab9adc0'
 const results: Results = ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())
-const members = new Set(results.value.results.flatMap(result => result.members))
-console.log(members)
 </script>
 
 <template>
@@ -37,7 +36,8 @@ console.log(members)
                 {{ result.job_result.is_clear ? t("job_result.is_clear") : t("job_result.is_failure") }}
               </li>
               <li class="grade">
-                Profreshional <span class="grade-point">620</span>
+                Profreshional
+                <span class="grade-point">620</span>
                 <!-- <span class="up" /> -->
               </li>
               <li class="ikura-result">
