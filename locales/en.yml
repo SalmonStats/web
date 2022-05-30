@@ -6,6 +6,10 @@ title:
 job_result:
   is_clear: Clear!
   is_failure: Defeat
+result:
+  wave: Wave
+  is_clear: ✓
+  is_failure: ✘
 grade:
   profreshional: Profreshional
   overachiver: Overachiver

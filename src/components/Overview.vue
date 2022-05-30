@@ -20,7 +20,6 @@ interface Results {
   results: Result[]
 }
 
-const iksm_session = '85d88ed05c05bf2b290d01b1c03429d7dab9adc0'
 const results: Results = ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())
 </script>
 
