@@ -6,6 +6,10 @@ title:
 job_result:
   is_clear: Clear!!
   is_failure: Failure
+result:
+  wave: WAVE
+  is_clear: GJ!
+  is_failure: NG
 grade:
   profreshional: たつじん
   overachiver: じゅくれん

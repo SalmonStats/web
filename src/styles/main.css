@@ -1,5 +1,15 @@
 @import './markdown.css';
 
+@font-face{
+    font-family:Splatoon1;
+    src:url(/fonts/bundled/0e12b13c359d4803021dc4e17cecc311.woff2) format("woff2"),url(/fonts/bundled/f25982b8ab52a929938cd63f15656ecf.woff) format("woff")
+}
+
+@font-face{
+    font-family:Splatoon2;
+    src:url(/fonts/bundled/eb82d017016045bf998cade4dac1ec22.woff2) format("woff2"),url(/fonts/bundled/b4fab2f6ac35a758f6aeb5b7054ab121.woff) format("woff")
+}
+
 html,
 body,
 #app {
