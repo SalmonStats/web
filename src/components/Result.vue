@@ -95,42 +95,44 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
         <h3>Job Crew</h3>
       </div><ul class="team-member-list">
         <li v-for="player in result.players" :key="player.nsaid" class="">
-          <div class="member inklings">
-            <div class="player-info">
-              <h4 class="player-name">
-                <span>{{ player.name }}</span>
-              </h4><ul class="coop-weapons-list">
-                <li><img class="weapon-image" src="/images/weapon/6d9246d994614a666aca4f24864c69d660b395dd.png" alt="Grizzco Charger"></li>
-                <li><img class="weapon-image" src="/images/weapon/695cedb1ff72589173c85ce61ad4dbc9e025249a.png" alt="Nautilus 47"></li>
-                <li><img class="weapon-image" src="/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png" alt="Hydra Splatling"></li>
-                <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li>
-              </ul><p class="boss-count">
-                {{ t("result.boss_salmonids_defeated") }} <span>{{ player.boss_kill_counts.reduce((prev, next) => prev + next, 0) }}</span>
-              </p>
-            </div><ul class="job-result">
-              <li>
-                <p class="golden-ikura">
-                  <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>
-                  <span class="num">{{ player.golden_ikura_num }}</span>
+          <router-link class=" internal-link" :to="`/users/${player.nsaid}`">
+            <div class="member inklings">
+              <div class="player-info">
+                <h4 class="player-name">
+                  <span>{{ player.name }}</span>
+                </h4><ul class="coop-weapons-list">
+                  <li><img class="weapon-image" src="/images/weapon/6d9246d994614a666aca4f24864c69d660b395dd.png" alt="Grizzco Charger"></li>
+                  <li><img class="weapon-image" src="/images/weapon/695cedb1ff72589173c85ce61ad4dbc9e025249a.png" alt="Nautilus 47"></li>
+                  <li><img class="weapon-image" src="/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png" alt="Hydra Splatling"></li>
+                  <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li>
+                </ul><p class="boss-count">
+                  {{ t("result.boss_salmonids_defeated") }} <span>{{ player.boss_kill_counts.reduce((prev, next) => prev + next, 0) }}</span>
                 </p>
-              </li><li>
-                <p class="ikura">
-                  <span class="ikura-count-icon screen-reader-text">Power Eggs collected</span>
-                  <span class="num"> {{ player.ikura_num }}</span>
-                </p>
-              </li><li>
-                <p class="salmon-help-count">
-                  <span class="salmon-help-count-icon screen-reader-text">Crew members rescued</span>
-                  <span class="num">{{ player.help_count }}</span>
-                </p>
-              </li><li>
-                <p class="salmon-dead-count">
-                  <span class="salmon-dead-count-icon screen-reader-text">Number of times rescued</span>
-                  <span class="num">{{ player.dead_count }}</span>
-                </p>
-              </li>
-            </ul>
-          </div>
+              </div><ul class="job-result">
+                <li>
+                  <p class="golden-ikura">
+                    <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>
+                    <span class="num">{{ player.golden_ikura_num }}</span>
+                  </p>
+                </li><li>
+                  <p class="ikura">
+                    <span class="ikura-count-icon screen-reader-text">Power Eggs collected</span>
+                    <span class="num"> {{ player.ikura_num }}</span>
+                  </p>
+                </li><li>
+                  <p class="salmon-help-count">
+                    <span class="salmon-help-count-icon screen-reader-text">Crew members rescued</span>
+                    <span class="num">{{ player.help_count }}</span>
+                  </p>
+                </li><li>
+                  <p class="salmon-dead-count">
+                    <span class="salmon-dead-count-icon screen-reader-text">Number of times rescued</span>
+                    <span class="num">{{ player.dead_count }}</span>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </router-link>
         </li>
       </ul>
     </section>
