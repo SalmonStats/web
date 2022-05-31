@@ -6,12 +6,22 @@ interface JobResult {
   is_clear: boolean
 }
 
+interface PlayerResult {
+  nsaid: string
+  name: string
+  job_id: number
+  grade_id: number
+  grade_point: number
+  grade_point_delta: number
+}
+
 interface Result {
   salmon_id: number
   golden_ikura_num: number
   ikura_num: number
   job_result: JobResult
   members: string[]
+  players: PlayerResult[]
 }
 
 interface Results {
@@ -20,8 +30,28 @@ interface Results {
   results: Result[]
 }
 
+enum GradeType {
+  Intern = 'intern',
+  Apparentice = 'apparentice',
+  Parttimer = 'parttimer',
+  Gogetter = 'gogetter',
+  Overachiver = 'overachiver',
+  Profreshional = 'profreshional',
+}
+
 const user_id = useRouter().currentRoute.value.params.user_id
 const results: Results = ref<Results>(await (await fetch(`https://api-dev.splatnet2.com/v1/results?order=false&nsaid=${user_id}`)).json())
+
+function get_grade_id(result: Result): string {
+  const player = result.players.filter(player => player.nsaid === user_id)[0]
+  const grade = Object.values(GradeType)[player.grade_id]
+  return grade === undefined ? null : t(`grade.${grade}`)
+}
+
+function get_grade_point(result: Result): number {
+  const player = result.players.filter(player => player.nsaid === user_id)[0]
+  return player.grade_point
+}
 </script>
 
 <template>
@@ -36,8 +66,8 @@ const results: Results = ref<Results>(await (await fetch(`https://api-dev.splatn
                 {{ result.job_result.is_clear ? t("job_result.is_clear") : t("job_result.is_failure") }}
               </li>
               <li class="grade">
-                Profreshional
-                <span class="grade-point">620</span>
+                {{ get_grade_id(result) }}
+                <span class="grade-point">{{ get_grade_point(result) }}</span>
                 <!-- <span class="up" /> -->
               </li>
               <li class="ikura-result">
