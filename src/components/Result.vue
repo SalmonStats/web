@@ -19,6 +19,18 @@ interface JobResult {
   is_clear: boolean
 }
 
+interface PlayerResult {
+  nsaid: string
+  name: string
+  boss_kill_counts: number[]
+  dead_count: number
+  golden_ikura_num: number
+  ikura_num: number
+  special_id: number
+  spacial_counts: number[]
+  weapon_list: number[]
+}
+
 interface Result {
   salmon_id: number
   golden_ikura_num: number
@@ -26,6 +38,7 @@ interface Result {
   members: string[]
   waves: WaveResult[]
   job_result: JobResult
+  players: PlayerResult[]
 }
 
 enum WaterLevel {
@@ -62,22 +75,59 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
         </li>
       </ul>
       <ul class="wave-detail">
-        <li>
+        <li v-for="wave in result.waves" :key="wave.quota_num">
           <p class="golden-ikura-pop-num">
-            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>Appearances <span class="num">57</span>
-          </p><ul class="special-count">
-            <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li><li><img class="special-image" src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png" alt="Sting Ray"></li>
+            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>{{ t("result.golden_ikura_num_appearances") }}
+            <span class="num">{{ wave.golden_ikura_pop_num }}</span>
+          </p>
+          <ul class="special-count">
+            <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li>
+            <li><img class="special-image" src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png" alt="Sting Ray"></li>
           </ul>
-        </li><li>
-          <p class="golden-ikura-pop-num">
-            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>Appearances <span class="num">62</span>
-          </p><ul class="special-count" />
-        </li><li>
-          <p class="golden-ikura-pop-num">
-            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>Appearances <span class="num">61</span>
-          </p><ul class="special-count">
-            <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li><li><img class="special-image" src="/images/special/9871c82952ed0141be0310ace1942c9f5f66d655.png" alt="Inkjet"></li><li><img class="special-image" src="/images/special/9871c82952ed0141be0310ace1942c9f5f66d655.png" alt="Inkjet"></li><li><img class="special-image" src="/images/special/324d41e9582d84101152849bc8c96d6595c9b0ff.png" alt="Splashdown"></li><li><img class="special-image" src="/images/special/324d41e9582d84101152849bc8c96d6595c9b0ff.png" alt="Splashdown"></li><li><img class="special-image" src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png" alt="Sting Ray"></li>
-          </ul>
+        </li>
+      </ul>
+    </section>
+    <section class="team-member">
+      <div class="team-member-header section-header">
+        <h3>Job Crew</h3>
+      </div><ul class="team-member-list">
+        <li v-for="player in result.players" :key="player.nsaid" class="">
+          <div class="member inklings">
+            <div class="player-info">
+              <h4 class="player-name">
+                <span>{{ player.name }}</span>
+              </h4><ul class="coop-weapons-list">
+                <li><img class="weapon-image" src="/images/weapon/6d9246d994614a666aca4f24864c69d660b395dd.png" alt="Grizzco Charger"></li>
+                <li><img class="weapon-image" src="/images/weapon/695cedb1ff72589173c85ce61ad4dbc9e025249a.png" alt="Nautilus 47"></li>
+                <li><img class="weapon-image" src="/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png" alt="Hydra Splatling"></li>
+                <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li>
+              </ul><p class="boss-count">
+                {{ t("result.boss_salmonids_defeated") }} <span>{{ player.boss_kill_counts.reduce((prev, next) => prev + next, 0) }}</span>
+              </p>
+            </div><ul class="job-result">
+              <li>
+                <p class="golden-ikura">
+                  <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>
+                  <span class="num">{{ player.golden_ikura_num }}</span>
+                </p>
+              </li><li>
+                <p class="ikura">
+                  <span class="ikura-count-icon screen-reader-text">Power Eggs collected</span>
+                  <span class="num"> {{ player.ikura_num }}</span>
+                </p>
+              </li><li>
+                <p class="salmon-help-count">
+                  <span class="salmon-help-count-icon screen-reader-text">Crew members rescued</span>
+                  <span class="num">{{ player.help_count }}</span>
+                </p>
+              </li><li>
+                <p class="salmon-dead-count">
+                  <span class="salmon-dead-count-icon screen-reader-text">Number of times rescued</span>
+                  <span class="num">{{ player.dead_count }}</span>
+                </p>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </section>
@@ -269,6 +319,12 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
         margin: -2px 4px 0 0;
         vertical-align: middle;
       }
+
+      .num::before {
+        content: "X";
+        font-size: 8px;
+        padding-right: 2px;
+      }
     }
 
     > li {
@@ -286,6 +342,7 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
   .screen-reader-text {
     display: none;
   }
+
   .wave-card-wrapper {
     position: relative;
     width: 100%;
@@ -317,5 +374,188 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
       z-index: -1;
     }
   }
+}
+
+.coop-result .team-member .team-member-list {
+  width: 100%;
+  max-width: 380px;
+  margin: 16px auto 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  > li {
+    position: relative;
+
+    &::before {
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      position: absolute;
+      display: block;
+      content: "";
+      width: 100%;
+      height: 100%;
+      top: 1px;
+      left: 1px;
+      background: #000;
+      -webkit-mask-image: url(/images/bundled/5c78e75c54e0c25ef13e7d846bda6742.png);
+      mask-image: url(/images/bundled/5c78e75c54e0c25ef13e7d846bda6742.png);
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 14px;
+    }
+  }
+}
+
+.coop-result .team-member .member {
+  background: #ff7500 url(/images/bundled/38bc201999d7057ed3ad25edd618d875.png);
+  background-size: 60px 60px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  padding: 0 12px 4px 0;
+  -webkit-mask-image: url(/images/bundled/5c78e75c54e0c25ef13e7d846bda6742.png);
+  mask-image: url(/images/bundled/5c78e75c54e0c25ef13e7d846bda6742.png);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.coop-result .team-member {
+  .player-info {
+    flex-grow: 1;
+    text-align: center;
+    padding-left: 12px;
+  }
+
+  .boss-count {
+    span:before {
+      content: "X";
+      font-size: 9px;
+      padding-right: 2px;
+    }
+
+    font-size: 11px;
+    color: #e5f100;
+    line-height: 11px;
+    padding-bottom: 1px;
+    text-shadow: 1px 1px 0 #000;
+  }
+
+  .job-result {
+    display: flex;
+    flex-wrap: wrap;
+    width: 160px;
+    justify-content: space-between;
+    font-size: 13px;
+
+    li {
+      color: #ccc;
+      text-shadow: 1px 1px 0 #000;
+      width: calc(50% - 1.5px);
+
+      &:first-child {
+        margin-bottom: 3px;
+      }
+    }
+  }
+
+  .golden-ikura, .ikura, .salmon-dead-count, .salmon-help-count {
+    position: relative;
+    background-color: rgb(0, 0, 0, .75);
+    height: 24px;
+    line-height: 24px;
+    padding-right: 6px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    text-align: right;
+  }
+
+  .golden-ikura::before {
+    background-image: url(/images/bundled/3aa6fb4ec1534196ede450667c1183dc.png);
+    background-size: 18px 18px;
+    left: 6px;
+  }
+
+  .ikura:before {
+    background-image: url(/images/bundled/efe826cfd1d44d19153f08e19f6caa2a.png);
+    background-size: 20.5px 15px;
+    left: 4px;
+  }
+
+  .salmon-help-count::before {
+    background-image: url(/images/bundled/c003ffe0a5580e4c8b1bc9df1e0a30d2.png);
+    background-size: 33.4px 12.8px;
+    left: 4px;
+  }
+
+  .salmon-dead-count:before {
+    background-image: url(/images/bundled/5d447dcfcb3b0c31ffb2efca58a6e799.png);
+    background-size: 30.8px 12.8px;
+    left: 4px;
+  }
+
+  .golden-ikura::before, .ikura::before, .salmon-dead-count::before, .salmon-help-count::before {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    content: "";
+    background-repeat: no-repeat;
+    background-position: 0;
+    height: 20px;
+    width: 40px;
+  }
+
+  .coop-weapons-list {
+    display: flex;
+    justify-content: center;
+    line-height: 0;
+    padding: 6px 0;
+    min-height: 28px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    li {
+      width: 28px;
+      height: 28px;
+      background: #000;
+      border-radius: 14px;
+
+      &:not(:last-child) {
+        margin-right: 2px;
+      }
+    }
+  }
+
+  .player-name {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: #fff;
+    font-size: 17px;
+    line-height: 18px;
+    text-shadow: 1px 1px 0 #000;
+    height: 43px;
+  }
+}
+
+.team-member-header.section-header {
+  display: none;
+}
+
+h4 {
+  font-weight: 300 !important;
 }
 </style>

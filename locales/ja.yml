@@ -10,6 +10,8 @@ result:
   wave: WAVE
   is_clear: GJ!
   is_failure: NG
+  boss_salmonids_defeated: オオモノシャケをたおした数
+  golden_ikura_num_appearances: 出現数
 grade:
   profreshional: たつじん
   overachiver: じゅくれん
