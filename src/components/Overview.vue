@@ -164,14 +164,14 @@ a {
 .coop-stats-list-content.clear .grade {
   color: #fff;
   font-family: Splatoon1;
-  font-size: 14px;
+  font-size: 17px;
   flex-grow: 1;
 }
 
 .coop-stats-list-content.failure .grade {
   color: #777;
   font-family: Splatoon1;
-  font-size: 14px;
+  font-size: 17px;
   flex-grow: 1;
 }
 
