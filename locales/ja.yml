@@ -12,6 +12,8 @@ result:
   is_failure: NG
   boss_salmonids_defeated: オオモノシャケをたおした数
   golden_ikura_num_appearances: 出現数
+  time_limit: 時間切れ
+  wipe_out: ゼンメツ! 
 grade:
   profreshional: たつじん
   overachiver: じゅくれん
