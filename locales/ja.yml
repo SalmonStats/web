@@ -7,6 +7,7 @@ job_result:
   is_clear: Clear!!
   is_failure: Failure
 result:
+  danger_rate: キケン度
   wave: WAVE
   is_clear: GJ!
   is_failure: NG

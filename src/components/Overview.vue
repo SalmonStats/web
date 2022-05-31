@@ -20,7 +20,8 @@ interface Results {
   results: Result[]
 }
 
-const results: Results = ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())
+const data: Result[] = (ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())).value.results
+const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
 </script>
 
 <template>
@@ -28,15 +29,15 @@ const results: Results = ref<Results>(await (await fetch('https://api-dev.splatn
     <div class="personal-stats-wrapper" />
     <div class="coop-stats">
       <ul class="coop-stats-list">
-        <li v-for="result in results.results" :key="result.salmon_id">
+        <li v-for="result in results" :key="result.salmon_id">
           <router-link class=" internal-link" :to="`/results/${result.salmon_id}`">
             <ul class="coop-stats-list-content" :class="{ clear: result.job_result.is_clear, failure: !result.job_result.is_clear }">
               <li class="job-result">
                 {{ result.job_result.is_clear ? t("job_result.is_clear") : t("job_result.is_failure") }}
               </li>
               <li class="grade">
-                Profreshional
-                <span class="grade-point">620</span>
+                {{ t("result.danger_rate") }}
+                <span class="grade-point">{{ result.danger_rate }}%</span>
                 <!-- <span class="up" /> -->
               </li>
               <li class="ikura-result">

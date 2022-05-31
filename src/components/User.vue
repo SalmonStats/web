@@ -22,6 +22,7 @@ interface Result {
   job_result: JobResult
   members: string[]
   players: PlayerResult[]
+  play_time: string
 }
 
 interface Results {
@@ -40,7 +41,8 @@ enum GradeType {
 }
 
 const user_id = useRouter().currentRoute.value.params.user_id
-const results: Results = ref<Results>(await (await fetch(`https://api-dev.splatnet2.com/v1/results?order=false&nsaid=${user_id}`)).json())
+const data: Result[] = (ref<Results>(await (await fetch(`https://api-dev.splatnet2.com/v1/results?order=false&nsaid=${user_id}`)).json())).value.results
+const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
 
 function get_grade_id(result: Result): string {
   const player = result.players.filter(player => player.nsaid === user_id)[0]
@@ -59,7 +61,7 @@ function get_grade_point(result: Result): number {
     <div class="personal-stats-wrapper" />
     <div class="coop-stats">
       <ul class="coop-stats-list">
-        <li v-for="result in results.results" :key="result.salmon_id">
+        <li v-for="result in results" :key="result.salmon_id">
           <router-link class=" internal-link" :to="`/results/${result.salmon_id}`">
             <ul class="coop-stats-list-content" :class="{ clear: result.job_result.is_clear, failure: !result.job_result.is_clear }">
               <li class="job-result">
