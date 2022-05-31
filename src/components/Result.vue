@@ -14,8 +14,8 @@ interface WaveResult {
 }
 
 interface JobResult {
-  failure_reason?: string
-  failure_wave?: number
+  failure_reason: string
+  failure_wave: number
   is_clear: boolean
 }
 
@@ -57,7 +57,10 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
         <li v-for="(wave, index) in result.waves" :key="wave.quota_num">
           <ul class="wave-card">
             <li class="wave-result" :class="{ gj: result.job_result.failure_wave !== index + 1, ng: result.job_result.failure_wave === index + 1 }">
-              {{ result.job_result.is_clear ? t("result.is_clear") : t("result.is_failure") }}
+              {{ result.job_result.failure_wave !== index + 1 ? t("result.is_clear") : t("result.is_failure") }}
+            </li>
+            <li v-if="result.job_result.failure_wave === index + 1" class="failure-reason">
+              {{ result.job_result.failure_reason === "time_limit" ? t("result.time_limit") : t("result.wipe_out") }}
             </li>
             <li class="wave-num">
               {{ t("result.wave") }} {{ index + 1 }}
@@ -200,6 +203,11 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
       font-size: 15px;
     }
 
+    &.ng {
+      color: #ff7500;
+      font-size: 15px;
+    }
+
     &::before {
       position: absolute;
       display: block;
@@ -217,6 +225,16 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
       -webkit-mask-size: contain;
       z-index: -1;
     }
+  }
+
+  .failure-reason {
+    position: absolute;
+    color: #ff7500;
+    font-size: 13px;
+    width: 100%;
+    top: -22px;
+    text-align: center;
+    text-shadow: 1px 1px #000;
   }
 }
 
