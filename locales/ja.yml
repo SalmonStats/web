@@ -13,7 +13,19 @@ result:
   boss_salmonids_defeated: オオモノシャケをたおした数
   golden_ikura_num_appearances: 出現数
   time_limit: 時間切れ
-  wipe_out: ゼンメツ! 
+  wipe_out: ゼンメツ!
+event_type:
+  water-levels: "-"
+  rush: ラッシュ
+  goldie-seeking: キンシャケ探し
+  griller: グリル発信
+  the-mothership: ハコビヤ襲来
+  fog: 霧
+  cohock-charge: ドスコイ大量発生
+water_level:
+  low: 干潮
+  normal: 普通
+  high: 満潮
 grade:
   profreshional: たつじん
   overachiver: じゅくれん

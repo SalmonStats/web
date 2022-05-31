@@ -14,6 +14,18 @@ result:
   golden_ikura_num_appearances: Appearances
   time_limit: Time Up!
   wipe_out: DEFEAT!
+event_type:
+  water-levels: "-"
+  rush: Rush
+  goldie-seeking: Goldie seeking
+  griller: Griller
+  the-mothership: The mothership
+  fog: Fog
+  cohock-charge: Cohock charge
+water_level:
+  low: Low tide
+  normal: Normal
+  high: High tide
 grade:
   profreshional: Profreshional
   overachiver: Overachiver

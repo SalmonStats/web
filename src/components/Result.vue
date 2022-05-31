@@ -4,6 +4,23 @@ import { ref } from '@vue/reactivity'
 const salmon_id = useRouter().currentRoute.value.params.salmon_id
 
 const { t, availableLocales, locale } = useI18n()
+
+enum WaterLevel {
+  low = 'low',
+  normal = 'normal',
+  high = 'high',
+}
+
+enum EventType {
+  waterlevels = 'water-levels',
+  rush = 'rush',
+  goldieseeking = 'goldie-seeking',
+  griller = 'griller',
+  themothership = 'the-mothership',
+  fog = 'fog',
+  cohockcharge = 'cohock-charge',
+}
+
 interface WaveResult {
   event_type: number
   water_level: number
@@ -41,13 +58,17 @@ interface Result {
   players: PlayerResult[]
 }
 
-enum WaterLevel {
-  low = 'result.low_tide',
-  normal = 'result.normal_tide',
-  hight = 'result.high_tide',
+const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2.com/v1/results/${salmon_id}`)).json())
+
+function get_event_type(event_id: number): string {
+  const event_type = Object.values(EventType)[event_id]
+  return t(`event_type.${event_type}`)
 }
 
-const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2.com/v1/results/${salmon_id}`)).json())
+function get_water_level(water_id: number): string {
+  const water_level = Object.values(WaterLevel)[water_id]
+  return t(`water_level.${water_level}`)
+}
 </script>
 
 <template>
@@ -69,10 +90,10 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
               {{ wave.golden_ikura_num }}/{{ wave.quota_num }}
             </li>
             <li class="water-level" :class="{ high: wave.water_level === 2, normal: wave.water_level === 1, low: wave.water_level === 0 }">
-              {{ wave.water_level }}
+              {{ get_water_level(wave.water_level) }}
             </li>
             <li class="event-type">
-              {{ wave.event_type }}
+              {{ get_event_type(wave.event_type) }}
             </li>
           </ul>
         </li>
