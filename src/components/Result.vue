@@ -61,6 +61,25 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
           </ul>
         </li>
       </ul>
+      <ul class="wave-detail">
+        <li>
+          <p class="golden-ikura-pop-num">
+            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>Appearances <span class="num">57</span>
+          </p><ul class="special-count">
+            <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li><li><img class="special-image" src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png" alt="Sting Ray"></li>
+          </ul>
+        </li><li>
+          <p class="golden-ikura-pop-num">
+            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>Appearances <span class="num">62</span>
+          </p><ul class="special-count" />
+        </li><li>
+          <p class="golden-ikura-pop-num">
+            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>Appearances <span class="num">61</span>
+          </p><ul class="special-count">
+            <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li><li><img class="special-image" src="/images/special/9871c82952ed0141be0310ace1942c9f5f66d655.png" alt="Inkjet"></li><li><img class="special-image" src="/images/special/9871c82952ed0141be0310ace1942c9f5f66d655.png" alt="Inkjet"></li><li><img class="special-image" src="/images/special/324d41e9582d84101152849bc8c96d6595c9b0ff.png" alt="Splashdown"></li><li><img class="special-image" src="/images/special/324d41e9582d84101152849bc8c96d6595c9b0ff.png" alt="Splashdown"></li><li><img class="special-image" src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png" alt="Sting Ray"></li>
+          </ul>
+        </li>
+      </ul>
     </section>
   </div>
 </template>
@@ -203,6 +222,70 @@ const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2
     }
   }
 
+  .wave-detail {
+    justify-content: center;
+    position: relative;
+    color: #fff;
+    left: 3px;
+    display: flex;
+
+    .special-count {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      li {
+        &:not(:last-child) {
+          margin-right: 3px;
+        }
+
+        position: relative;
+        width: 22px;
+        height: 22px;
+        line-height: 0;
+        margin-bottom: 3px;
+        background: #000;
+        border-radius: 11px;
+      }
+
+      li * {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .golden-ikura-pop-num {
+      font-size: 12px;
+      text-shadow: 1px 1px 0 #000;
+      padding: 5px 0;
+
+      &::before {
+        display: inline-block;
+        content: "";
+        background: url(/images/bundled/3aa6fb4ec1534196ede450667c1183dc.png) 50% no-repeat;
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        margin: -2px 4px 0 0;
+        vertical-align: middle;
+      }
+    }
+
+    > li {
+      justify-content: center;
+      width: calc(100%/3 - 16px/3);
+      transform: rotate(-2deg);
+      will-change: transform;
+
+      &:not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .screen-reader-text {
+    display: none;
+  }
   .wave-card-wrapper {
     position: relative;
     width: 100%;
