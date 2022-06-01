@@ -13,9 +13,6 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/vue-fontawesome": "3.0.0-5",
     "@vueuse/core": "^8.5.0",
     "@vueuse/head": "^0.7.6",
     "nprogress": "^0.2.0",
