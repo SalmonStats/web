@@ -34,3 +34,14 @@ grade:
   parttimer: Part-Timer
   apparentice: Apprentice
   intern: Intern
+user:
+  nickname: Player
+card:
+  point_card: Grizzco Card
+  shifts_worked: Shifts worked
+  golden_ikura_num: Golden Eggs collected
+  ikura_num: Power Eggs collected
+  crew_members_rescued: Crew members rescued
+  total_points: Total points
+  last_jobs_average: Last 50 Jobs Average
+  average_waves_cleared: Average Waves Cleared
