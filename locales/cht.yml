@@ -1,0 +1,48 @@
+title:
+  salmon_stats: Salmon Stats
+  salmon_id: ID
+  golden_ikura_num: 金蛋
+  ikura_num: 魚卵
+  undefined: 未計測
+job_result:
+  is_clear: 過關!
+  is_failure: 失敗
+result:
+  danger_rate: 危險度
+  wave: WAVE
+  is_clear: ✓
+  is_failure: ✘
+  boss_salmonids_defeated: 鮭魚王擊敗數
+  golden_ikura_num_appearances: 出現數
+  time_limit: 時間到!
+  wipe_out: 失敗!
+event_type:
+  water-levels: "-"
+  rush: 鮭魚暴走
+  goldie-seeking: 尋找鮭魚
+  griller: 烤肉架
+  the-mothership: 母船來襲
+  fog: 起霧
+  cohock-charge: 大鮭魚大量發生
+water_level:
+  low: 低潮
+  normal: 普通
+  high: 漲潮
+grade:
+  profreshional: 達人
+  overachiver: 資優生
+  gogetter: 能手
+  parttimer: 打工仔
+  apparentice: 學徒
+  intern: 實習生
+user:
+  nickname: 玩家名稱
+card:
+  point_card: Grizzco 卡片
+  shifts_worked: 打工次數
+  golden_ikura_num: 金蛋蒐集數
+  ikura_num: 魚卵蒐集數
+  crew_members_rescued: 同夥解救數
+  total_points: 總分
+  last_jobs_average: 近 50 場平均
+  average_waves_cleared: 平均完成 Wave 數
