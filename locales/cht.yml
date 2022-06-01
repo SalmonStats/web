@@ -12,20 +12,20 @@ result:
   wave: WAVE
   is_clear: ✓
   is_failure: ✘
-  boss_salmonids_defeated: 鮭魚王擊敗數
+  boss_salmonids_defeated: Boss 擊敗數
   golden_ikura_num_appearances: 出現數
   time_limit: 時間到!
   wipe_out: 失敗!
 event_type:
   water-levels: "-"
   rush: 鮭魚暴走
-  goldie-seeking: 尋找鮭魚
+  goldie-seeking: 尋找金鮭魚
   griller: 烤肉架
   the-mothership: 母船來襲
   fog: 起霧
   cohock-charge: 大鮭魚大量發生
 water_level:
-  low: 低潮
+  low: 退潮
   normal: 普通
   high: 漲潮
 grade:
@@ -39,7 +39,7 @@ user:
   nickname: 玩家名稱
 card:
   point_card: Grizzco 卡片
-  shifts_worked: 打工次數
+  shifts_worked: 總打工次數
   golden_ikura_num: 金蛋蒐集數
   ikura_num: 魚卵蒐集數
   crew_members_rescued: 同夥解救數
