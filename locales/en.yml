@@ -1,3 +1,6 @@
+page:
+  setting: Settings
+  not_found: Not found
 title:
   salmon_stats: Salmon Stats
   salmon_id: Salmon ID

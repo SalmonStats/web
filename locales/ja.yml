@@ -1,3 +1,6 @@
+page:
+  setting: 設定
+  not_found: ページが見つかりません
 title:
   salmon_stats: Salmon Stats
   salmon_id: ID

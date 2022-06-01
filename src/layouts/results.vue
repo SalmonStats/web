@@ -4,6 +4,6 @@
     <Suspense>
       <Result />
     </Suspense>
-    <Footer />
+    <Navigation />
   </main>
 </template>

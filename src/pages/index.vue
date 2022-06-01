@@ -11,7 +11,7 @@ meta:
   layout: home
 </route>
 
-<style scoped>
+<style lang="scss" scoped>
 h1 {
   font-family: Splatoon1;
   font-size: 24px;

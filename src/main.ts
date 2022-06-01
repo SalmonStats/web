@@ -1,11 +1,16 @@
 import { ViteSSG } from 'vite-ssg'
 import { setupLayouts } from 'virtual:generated-layouts'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faLeaf } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import App from './App.vue'
 import generatedRoutes from '~pages'
 
 import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 import 'uno.css'
+
+library.add(faLeaf)
 
 const routes = setupLayouts(generatedRoutes)
 

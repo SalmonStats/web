@@ -7,6 +7,6 @@
     <Suspense>
       <User />
     </Suspense>
-    <Footer />
+    <Navigation />
   </main>
 </template>
