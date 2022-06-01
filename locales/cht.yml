@@ -19,9 +19,9 @@ result:
 event_type:
   water-levels: "-"
   rush: 鮭魚暴走
-  goldie-seeking: 尋找金鮭魚
-  griller: 烤肉架
-  the-mothership: 母船來襲
+  goldie-seeking: 金鮭魚間歇泉
+  griller: 烤肉架出擊
+  the-mothership: 運輸母艦來襲
   fog: 起霧
   cohock-charge: 大鮭魚大量發生
 water_level:
@@ -31,7 +31,7 @@ water_level:
 grade:
   profreshional: 達人
   overachiver: 資優生
-  gogetter: 能手
+  gogetter: 一流好手
   parttimer: 打工仔
   apparentice: 學徒
   intern: 實習生
