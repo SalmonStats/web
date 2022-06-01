@@ -34,3 +34,14 @@ grade:
   parttimer: はんにんまえ
   apparentice: かけだし
   intern: けんしゅう
+user:
+  nickname: プレイヤー情報
+card:
+  point_card: クマサンポイントカード
+  shifts_worked: バイト回数
+  golden_ikura_num: 集めた金イクラ
+  ikura_num: 集めたイクラ
+  crew_members_rescued: 助けた回数
+  total_points: るいけいポイント
+  last_jobs_average: 最近50バイトのへいきん
+  average_waves_cleared: へいきんクリアWave数
