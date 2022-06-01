@@ -3,7 +3,7 @@ title:
   salmon_id: ID
   golden_ikura_num: 金蛋
   ikura_num: 红蛋
-  undefined: 未計测
+  undefined: 未计测
 job_result:
   is_clear: 过关!
   is_failure: 失败
@@ -21,28 +21,28 @@ event_type:
   rush: 暴走
   goldie-seeking: 开泉
   griller: 烧烤架
-  the-mothership: 母舰/快递
-  fog: 起雾
+  the-mothership: 快递
+  fog: 雾天
   cohock-charge: 大鲑鱼大量发生
 water_level:
   low: 退潮
-  normal: 普通
+  normal: 普通潮
   high: 涨潮
 grade:
   profreshional: 达人
   overachiver: 优等生
-  gogetter: 能手
+  gogetter: 小能手
   parttimer: 打工仔
   apparentice: 学徒
   intern: 实习生
 user:
   nickname: 玩家名称
 card:
-  point_card: Grizzco 卡片
+  point_card: Grizzco 点数卡
   shifts_worked: 总打工次数
-  golden_ikura_num: 金蛋搜集数
-  ikura_num: 鱼卵搜集数
-  crew_members_rescued: 同伙解救数
+  golden_ikura_num: 金蛋收集数
+  ikura_num: 红蛋收集数
+  crew_members_rescued: 队友解救数
   total_points: 总分
   last_jobs_average: 近 50 场平均
   average_waves_cleared: 平均完成 Wave 数
