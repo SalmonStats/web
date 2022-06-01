@@ -3,6 +3,7 @@ title:
   salmon_id: ID
   golden_ikura_num: 金イクラ
   ikura_num: 赤イクラ
+  undefined: 未計測
 job_result:
   is_clear: Clear!!
   is_failure: Failure

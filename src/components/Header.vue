@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { NumberOptions } from 'vue-i18n'
+
 const { t, availableLocales, locale } = useI18n()
 
 const toggleLocales = () => {
@@ -17,22 +19,61 @@ interface NicknameAndIcon {
   nickname_and_icons: User[]
 }
 
+interface JobResult {
+  failure_wave?: number
+  failure_reason?: string
+  is_clear: boolean
+}
+
+interface Result {
+  job_result: JobResult
+}
+
+interface UserData {
+  job_id: number
+  golden_ikura_num: number
+  ikura_num: number
+  dead_count: number
+  kuma_point: number
+  help_count: number
+  grade_id: number
+  grade_point: number
+  results: Result[]
+}
+
+enum GradeType {
+  Intern = 'intern',
+  Apparentice = 'apparentice',
+  Parttimer = 'parttimer',
+  Gogetter = 'gogetter',
+  Overachiver = 'overachiver',
+  Profreshional = 'profreshional',
+}
+
+function get_grade_id(grade_id: number): string {
+  const grade = Object.values(GradeType)[grade_id]
+  return grade === undefined ? null : t(`grade.${grade}`)
+}
+
 const user_id = useRouter().currentRoute.value.params.user_id
 const user = (ref<NicknameAndIcon>(await (await fetch(`https://s2s-hash-server.herokuapp.com/nickname_and_icon?id=${user_id}`)).json())).value.nickname_and_icons[0]
+const userdata = (ref<UserData>(await (await fetch(`https://api-dev.splatnet2.com/v1/users/${user_id}`)).json())).value
+const job_count = userdata.results.length
+const avg_clear_waves = userdata.results.map(result => result.job_result.failure_wave === null ? 3 : result.job_result.failure_wave - 1).reduce((x, y) => x + y, 0) / job_count
 </script>
 
 <template>
   <section class="coop-results-summary">
     <div class="summary-1">
       <div class="grade">
-        <h3>Profreshional</h3><div class="grade-point">
+        <h3>{{ get_grade_id(userdata.grade_id) ?? t("title.undefined") }}</h3><div class="grade-point">
           <div class="grade-point-bar" style="width: 100%;" /><p class="grade-point-num">
-            860
+            {{ userdata.grade_point ?? "-" }}
           </p>
         </div>
       </div><div class="total-wave-average">
         <h3>{{ t("card.last_jobs_average") }}</h3><p class="total-wave-average-point">
-          {{ t("card.average_waves_cleared") }}<span>2.8</span>
+          {{ t("card.average_waves_cleared") }}<span>{{ avg_clear_waves }}</span>
         </p>
       </div><div class="reward-gear">
         <h3>{{ t("user.nickname") }}</h3><p class="reward-gear-image">
@@ -48,15 +89,15 @@ const user = (ref<NicknameAndIcon>(await (await fetch(`https://s2s-hash-server.h
         </div>
         <dl>
           <dt>{{ t("card.shifts_worked") }}</dt>
-          <dd>3650</dd>
+          <dd>{{ userdata.job_id }}</dd>
           <dt>{{ t("card.golden_ikura_num") }}</dt>
-          <dd>95750</dd>
+          <dd>{{ userdata.golden_ikura_num }}</dd>
           <dt>{{ t("card.ikura_num") }}</dt>
-          <dd>3243861</dd>
+          <dd>{{ userdata.ikura_num }}</dd>
           <dt>{{ t("card.crew_members_rescued") }}</dt>
-          <dd>4731</dd>
+          <dd>{{ userdata.help_count }}</dd>
           <dt>{{ t("card.total_points") }}</dt>
-          <dd>1568319p</dd>
+          <dd>{{ userdata.kuma_point ?? "-" }}p</dd>
         </dl>
       </div>
     </div>

@@ -3,6 +3,7 @@ title:
   salmon_id: Salmon ID
   golden_ikura_num: Golden Eggs
   ikura_num: Power Eggs
+  undefined: Undefined
 job_result:
   is_clear: Clear!
   is_failure: Defeat
