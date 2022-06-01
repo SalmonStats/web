@@ -2,7 +2,7 @@ title:
   salmon_stats: Salmon Stats
   salmon_id: ID
   golden_ikura_num: 金蛋
-  ikura_num: 魚卵
+  ikura_num: 紅蛋
   undefined: 未計測
 job_result:
   is_clear: 過關!
@@ -13,7 +13,7 @@ result:
   is_clear: ✓
   is_failure: ✘
   boss_salmonids_defeated: Boss 擊敗數
-  golden_ikura_num_appearances: 出現數
+  golden_ikura_num_appearances: 金蛋出現數
   time_limit: 時間到!
   wipe_out: 失敗!
 event_type:
@@ -26,7 +26,7 @@ event_type:
   cohock-charge: 大鮭魚大量發生
 water_level:
   low: 退潮
-  normal: 普通
+  normal: 普通潮
   high: 漲潮
 grade:
   profreshional: 達人
@@ -41,8 +41,8 @@ card:
   point_card: Grizzco 卡片
   shifts_worked: 總打工次數
   golden_ikura_num: 金蛋蒐集數
-  ikura_num: 魚卵蒐集數
-  crew_members_rescued: 同夥解救數
+  ikura_num: 紅蛋蒐集數
+  crew_members_rescued: 隊友解救數
   total_points: 總分
   last_jobs_average: 近 50 場平均
   average_waves_cleared: 平均完成 Wave 數
