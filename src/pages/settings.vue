@@ -3,15 +3,22 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <h1>{{ t("title.salmon_stats") }}</h1>
+  <div class="app-setting">
+    <h1>{{ t("page.setting") }}</h1>
+  </div>
+  <Footer />
 </template>
 
 <route lang="yaml">
 meta:
-  layout: home
+  layout: default
 </route>
 
 <style lang="scss" scoped>
+.app-setting {
+  padding-top: 10%;
+}
+
 h1 {
   font-family: Splatoon1;
   font-size: 24px;

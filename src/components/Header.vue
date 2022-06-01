@@ -56,7 +56,7 @@ function get_grade_id(grade_id: number): string {
 }
 
 const user_id = useRouter().currentRoute.value.params.user_id
-const user = (ref<NicknameAndIcon>(await (await fetch(`https://s2s-hash-server.herokuapp.com/nickname_and_icon?id=${user_id}`)).json())).value.nickname_and_icons[0]
+const user = (ref<NicknameAndIcon>(await (await fetch(`https://s2s-hash-server.herokuapp.com/nickname_and_icon?id=${user_id}`, { cache: 'force-cache' })).json())).value.nickname_and_icons[0]
 const userdata = (ref<UserData>(await (await fetch(`https://api-dev.splatnet2.com/v1/users/${user_id}`)).json())).value
 const job_count = userdata.results.length
 const avg_clear_waves = userdata.results.map(result => result.job_result.failure_wave === null ? 3 : result.job_result.failure_wave - 1).reduce((x, y) => x + y, 0) / job_count
@@ -73,7 +73,7 @@ const avg_clear_waves = userdata.results.map(result => result.job_result.failure
         </div>
       </div><div class="total-wave-average">
         <h3>{{ t("card.last_jobs_average") }}</h3><p class="total-wave-average-point">
-          {{ t("card.average_waves_cleared") }}<span>{{ avg_clear_waves }}</span>
+          {{ t("card.average_waves_cleared") }}<span>{{ Number(avg_clear_waves.toFixed(3)) }}</span>
         </p>
       </div><div class="reward-gear">
         <h3>{{ t("user.nickname") }}</h3><p class="reward-gear-image">
@@ -85,7 +85,7 @@ const avg_clear_waves = userdata.results.map(result => result.job_result.failure
     </div><div class="summary-2">
       <div class="point-card">
         <h3>{{ t("card.point_card") }}</h3><div class="kuma-point">
-          <h4>Current points</h4><p>12111p</p>
+          <h4>{{ t("title.undefined") }}</h4><p>{{ "-p" }}</p>
         </div>
         <dl>
           <dt>{{ t("card.shifts_worked") }}</dt>

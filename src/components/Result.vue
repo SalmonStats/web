@@ -58,7 +58,7 @@ interface Result {
   players: PlayerResult[]
 }
 
-const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2.com/v1/results/${salmon_id}`)).json())
+const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2.com/v1/results/${salmon_id}`, { cache: 'force-cache' })).json())
 
 function get_event_type(event_id: number): string {
   const event_type = Object.values(EventType)[event_id]

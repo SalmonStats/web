@@ -20,7 +20,7 @@ interface Results {
   results: Result[]
 }
 
-const data: Result[] = (ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false')).json())).value.results
+const data: Result[] = (ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false', { cache: 'no-cache' })).json())).value.results
 const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
 </script>
 
