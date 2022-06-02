@@ -31,7 +31,7 @@ const RankMode: RankType[] = [
 ];
 
 const request = async () => {
-  const url = 'http://localhost:3000/v1/ranks';
+  const url = 'https://api-dev.splatnet2.com/v1/ranks';
   const response = await (
     await fetch(url, { cache: 'no-cache', mode: 'cors' })
   ).json();
