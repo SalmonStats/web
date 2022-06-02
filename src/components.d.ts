@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./components/Header.vue')['default']
     Navigation: typeof import('./components/Navigation.vue')['default']
     Overview: typeof import('./components/Overview.vue')['default']
+    Ranking: typeof import('./components/Ranking.vue')['default']
     README: typeof import('./components/README.md')['default']
     Result: typeof import('./components/Result.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

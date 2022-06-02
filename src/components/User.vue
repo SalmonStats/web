@@ -41,8 +41,14 @@ enum GradeType {
 }
 
 const user_id = useRouter().currentRoute.value.params.user_id
-const data: Result[] = (ref<Results>(await (await fetch(`https://api-dev.splatnet2.com/v1/results?order=false&nsaid=${user_id}`, { cache: 'default' })).json())).value.results
-const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
+const url = `https://api-dev.splatnet2.com/v1/results?order=false&nsaid=${user_id}`
+
+const request = async () => {
+  const response = await (await fetch(url)).json()
+  const results = ref<Results>(response).value.results
+  return results.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
+}
+const results = await request()
 
 function get_grade_id(result: Result): string {
   const player = result.players.filter(player => player.nsaid === user_id)[0]
