@@ -15,8 +15,13 @@
   "dependencies": {
     "@vueuse/core": "^8.5.0",
     "@vueuse/head": "^0.7.6",
+    "axios": "^0.27.2",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
+    "prettier": "^2.6.2",
     "prism-theme-vars": "^0.2.3",
     "sass": "^1.52.1",
     "vue": "^3.2.36",
@@ -25,7 +30,6 @@
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.24.3",
     "@iconify-json/carbon": "^1.1.5",
     "@intlify/vite-plugin-vue-i18n": "^4.0.0",
     "@types/markdown-it-link-attributes": "^3.0.1",
@@ -35,8 +39,6 @@
     "critters": "^0.0.16",
     "cross-env": "^7.0.3",
     "cypress": "^9.7.0",
-    "eslint": "^8.16.0",
-    "eslint-plugin-cypress": "^2.12.1",
     "https-localhost": "^4.7.1",
     "markdown-it-link-attributes": "^4.0.0",
     "markdown-it-prism": "^2.2.4",

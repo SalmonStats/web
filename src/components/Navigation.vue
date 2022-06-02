@@ -24,7 +24,7 @@ const items: Item[] = [
   {
     title: 'Rank',
     icon: 'i-carbon-list',
-    path: '/settings',
+    path: '/ranks',
   },
   {
     title: 'Setting',

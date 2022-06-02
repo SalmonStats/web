@@ -56,8 +56,22 @@ function get_grade_id(grade_id: number): string {
 }
 
 const user_id = useRouter().currentRoute.value.params.user_id
-const user = (ref<NicknameAndIcon>(await (await fetch(`https://s2s-hash-server.herokuapp.com/nickname_and_icon?id=${user_id}`, { cache: 'force-cache' })).json())).value.nickname_and_icons[0]
-const userdata = (ref<UserData>(await (await fetch(`https://api-dev.splatnet2.com/v1/users/${user_id}`)).json())).value
+
+const request_nickname = async () => {
+  const url = `https://s2s-hash-server.herokuapp.com/nickname_and_icon?id=${user_id}`
+  const response = await (await fetch(url, { cache: 'force-cache'})).json()
+  return ref<NicknameAndIcon>(response).value.nickname_and_icons[0]
+}
+
+const request_userdata = async () => {
+  const url = `https://api-dev.splatnet2.com/v1/users/${user_id}`
+  const response = await (await fetch(url)).json()
+  return ref<UserData>(response).value
+}
+
+const userdata = await request_userdata()
+const user = await request_nickname()
+
 const job_count = userdata.results.length
 const avg_clear_waves = userdata.results.map(result => result.job_result.failure_wave === null ? 3 : result.job_result.failure_wave - 1).reduce((x, y) => x + y, 0) / job_count
 </script>
@@ -77,7 +91,7 @@ const avg_clear_waves = userdata.results.map(result => result.job_result.failure
         </p>
       </div><div class="reward-gear">
         <h3>{{ t("user.nickname") }}</h3><p class="reward-gear-image">
-          <img class="gear gear-image" :src="`${user.thumbnail_url}`" alt="Office Attire">
+          <img class="gear gear-image" :src="`${ user === undefined ? null : user.thumbnail_url }`" alt="Office Attire">
         </p><p class="reward-gear-name">
           {{ user.nickname }}
         </p>
