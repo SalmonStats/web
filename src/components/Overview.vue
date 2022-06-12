@@ -1,27 +1,35 @@
 <script setup lang="ts">
-import { ref } from '@vue/reactivity'
-const { t, availableLocales, locale } = useI18n()
+import { ref } from '@vue/reactivity';
+const { t, availableLocales, locale } = useI18n();
 
 interface JobResult {
-  is_clear: boolean
+  is_clear: boolean;
 }
 
 interface Result {
-  salmon_id: number
-  golden_ikura_num: number
-  ikura_num: number
-  job_result: JobResult
-  members: string[]
+  salmon_id: number;
+  golden_ikura_num: number;
+  ikura_num: number;
+  job_result: JobResult;
+  members: string[];
 }
 
 interface Results {
-  limit: number
-  offset: number
-  results: Result[]
+  limit: number;
+  offset: number;
+  results: Result[];
 }
 
-const data: Result[] = (ref<Results>(await (await fetch('https://api-dev.splatnet2.com/v1/results?order=false', { cache: 'no-cache' })).json())).value.results
-const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
+const data: Result[] = ref<Results>(
+  await (
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/v1/results`, {
+      cache: 'no-cache',
+    })
+  ).json()
+).value.results;
+const results: Result[] = data.sort(
+  (x, y) => Date.parse(y.play_time) - Date.parse(x.play_time)
+);
 </script>
 
 <template>
@@ -30,13 +38,26 @@ const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.par
     <div class="coop-stats">
       <ul class="coop-stats-list">
         <li v-for="result in results" :key="result.salmon_id">
-          <router-link class=" internal-link" :to="`/results/${result.salmon_id}`">
-            <ul class="coop-stats-list-content" :class="{ clear: result.job_result.is_clear, failure: !result.job_result.is_clear }">
+          <router-link
+            class="internal-link"
+            :to="`/results/${result.salmon_id}`"
+          >
+            <ul
+              class="coop-stats-list-content"
+              :class="{
+                clear: result.job_result.is_clear,
+                failure: !result.job_result.is_clear,
+              }"
+            >
               <li class="job-result">
-                {{ result.job_result.is_clear ? t("job_result.is_clear") : t("job_result.is_failure") }}
+                {{
+                  result.job_result.is_clear
+                    ? t('job_result.is_clear')
+                    : t('job_result.is_failure')
+                }}
               </li>
               <li class="grade">
-                {{ t("result.danger_rate") }}
+                {{ t('result.danger_rate') }}
                 <span class="grade-point">{{ result.danger_rate }}%</span>
                 <!-- <span class="up" /> -->
               </li>
@@ -60,18 +81,18 @@ const results: Result[] = data.sort((x, y) => Date.parse(y.play_time) - Date.par
 
 <style scoped>
 .coop-stats-list-content {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    background: rgba(0,0,0,.75);
-    margin-bottom: 8px;
-    height: 48px;
-    border-radius: 24px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  margin-bottom: 8px;
+  height: 48px;
+  border-radius: 24px;
 }
 
 .num::before {
-  content: "X";
+  content: 'X';
   font-size: 11px;
   padding-right: 2px;
 }
@@ -110,7 +131,7 @@ a {
   left: 0;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  content: "";
+  content: '';
   background-repeat: no-repeat;
   background-position: 50%;
   height: 20px;
@@ -125,7 +146,7 @@ a {
   left: 0;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  content: "";
+  content: '';
   background-repeat: no-repeat;
   background-position: 50%;
   height: 20px;
@@ -135,17 +156,17 @@ a {
 }
 
 .screen-reader-text {
-    position: absolute!important;
-    clip: rect(1,1,1,1);
-    display: none;
+  position: absolute !important;
+  clip: rect(1, 1, 1, 1);
+  display: none;
 }
 
 .coop-stats-list {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 0 10px;
-    line-height: 1;
-    box-sizing: border-box;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 10px;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 .coop-stats-list-content.clear .job-result {
@@ -177,14 +198,14 @@ a {
 }
 
 .coop-stats-list-content .up {
-    display: inline-block;
-    background-image: url(/images/bundled/ae680e6….png);
-    margin-left: 8px;
-    width: 24px;
-    height: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    vertical-align: middle;
+  display: inline-block;
+  background-image: url(/images/bundled/ae680e6….png);
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  vertical-align: middle;
 }
 </style>

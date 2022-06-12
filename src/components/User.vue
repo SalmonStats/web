@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { ref } from '@vue/reactivity'
-const { t, availableLocales, locale } = useI18n()
+import { ref } from '@vue/reactivity';
+const { t, availableLocales, locale } = useI18n();
 
 interface JobResult {
-  is_clear: boolean
+  is_clear: boolean;
 }
 
 interface PlayerResult {
-  nsaid: string
-  name: string
-  job_id: number
-  grade_id: number
-  grade_point: number
-  grade_point_delta: number
+  nsaid: string;
+  name: string;
+  job_id: number;
+  grade_id: number;
+  grade_point: number;
+  grade_point_delta: number;
 }
 
 interface Result {
-  salmon_id: number
-  golden_ikura_num: number
-  ikura_num: number
-  job_result: JobResult
-  members: string[]
-  players: PlayerResult[]
-  play_time: string
+  salmon_id: number;
+  golden_ikura_num: number;
+  ikura_num: number;
+  job_result: JobResult;
+  members: string[];
+  players: PlayerResult[];
+  play_time: string;
 }
 
 interface Results {
-  limit: number
-  offset: number
-  results: Result[]
+  limit: number;
+  offset: number;
+  results: Result[];
 }
 
 enum GradeType {
@@ -40,25 +40,29 @@ enum GradeType {
   Profreshional = 'profreshional',
 }
 
-const user_id = useRouter().currentRoute.value.params.user_id
-const url = `https://api-dev.splatnet2.com/v1/results?order=false&nsaid=${user_id}`
+const user_id = useRouter().currentRoute.value.params.user_id;
+const url = `${
+  import.meta.env.VITE_SERVER_URL
+}/v1/results?order=false&nsaid=${user_id}`;
 
 const request = async () => {
-  const response = await (await fetch(url)).json()
-  const results = ref<Results>(response).value.results
-  return results.sort((x, y) => Date.parse(y.play_time) - Date.parse(x.play_time))
-}
-const results = await request()
+  const response = await (await fetch(url)).json();
+  const results = ref<Results>(response).value.results;
+  return results.sort(
+    (x, y) => Date.parse(y.play_time) - Date.parse(x.play_time)
+  );
+};
+const results = await request();
 
 function get_grade_id(result: Result): string {
-  const player = result.players.filter(player => player.nsaid === user_id)[0]
-  const grade = Object.values(GradeType)[player.grade_id]
-  return grade === undefined ? null : t(`grade.${grade}`)
+  const player = result.players.filter((player) => player.nsaid === user_id)[0];
+  const grade = Object.values(GradeType)[player.grade_id];
+  return grade === undefined ? null : t(`grade.${grade}`);
 }
 
 function get_grade_point(result: Result): number {
-  const player = result.players.filter(player => player.nsaid === user_id)[0]
-  return player.grade_point
+  const player = result.players.filter((player) => player.nsaid === user_id)[0];
+  return player.grade_point;
 }
 </script>
 
@@ -68,10 +72,23 @@ function get_grade_point(result: Result): number {
     <div class="coop-stats">
       <ul class="coop-stats-list">
         <li v-for="result in results" :key="result.salmon_id">
-          <router-link class=" internal-link" :to="`/results/${result.salmon_id}`">
-            <ul class="coop-stats-list-content" :class="{ clear: result.job_result.is_clear, failure: !result.job_result.is_clear }">
+          <router-link
+            class="internal-link"
+            :to="`/results/${result.salmon_id}`"
+          >
+            <ul
+              class="coop-stats-list-content"
+              :class="{
+                clear: result.job_result.is_clear,
+                failure: !result.job_result.is_clear,
+              }"
+            >
               <li class="job-result">
-                {{ result.job_result.is_clear ? t("job_result.is_clear") : t("job_result.is_failure") }}
+                {{
+                  result.job_result.is_clear
+                    ? t('job_result.is_clear')
+                    : t('job_result.is_failure')
+                }}
               </li>
               <li class="grade">
                 {{ get_grade_id(result) }}
@@ -98,18 +115,18 @@ function get_grade_point(result: Result): number {
 
 <style scoped>
 .coop-stats-list-content {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
-    background: rgba(0,0,0,.75);
-    margin-bottom: 8px;
-    height: 48px;
-    border-radius: 24px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+  margin-bottom: 8px;
+  height: 48px;
+  border-radius: 24px;
 }
 
 .num::before {
-  content: "X";
+  content: 'X';
   font-size: 11px;
   padding-right: 2px;
 }
@@ -148,7 +165,7 @@ a {
   left: 0;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  content: "";
+  content: '';
   background-repeat: no-repeat;
   background-position: 50%;
   height: 20px;
@@ -163,7 +180,7 @@ a {
   left: 0;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  content: "";
+  content: '';
   background-repeat: no-repeat;
   background-position: 50%;
   height: 20px;
@@ -173,17 +190,17 @@ a {
 }
 
 .screen-reader-text {
-    position: absolute!important;
-    clip: rect(1,1,1,1);
-    display: none;
+  position: absolute !important;
+  clip: rect(1, 1, 1, 1);
+  display: none;
 }
 
 .coop-stats-list {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 0 10px;
-    line-height: 1;
-    box-sizing: border-box;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 10px;
+  line-height: 1;
+  box-sizing: border-box;
 }
 
 .coop-stats-list-content.clear .job-result {
@@ -215,14 +232,14 @@ a {
 }
 
 .coop-stats-list-content .up {
-    display: inline-block;
-    background-image: url(/images/bundled/ae680e6….png);
-    margin-left: 8px;
-    width: 24px;
-    height: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    vertical-align: middle;
+  display: inline-block;
+  background-image: url(/images/bundled/ae680e6….png);
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  vertical-align: middle;
 }
 </style>
