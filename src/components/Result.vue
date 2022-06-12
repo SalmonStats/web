@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { ref } from '@vue/reactivity';
+// ブキのデータ
+import weapons from '../assets/weapons.json';
+// ステージのデータ
+import stages from '../assets/stages.json';
+
+import specials from '../assets/specials.json';
 
 const salmon_id = useRouter().currentRoute.value.params.salmon_id;
 
@@ -166,32 +172,16 @@ function get_water_level(water_id: number): string {
                   <span>{{ player.name }}</span>
                 </h4>
                 <ul class="coop-weapons-list">
-                  <li>
+                  <li v-for="weapon in player.weapon_list" :key="weapon">
                     <img
                       class="weapon-image"
-                      src="/images/weapon/6d9246d994614a666aca4f24864c69d660b395dd.png"
-                      alt="Grizzco Charger"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      class="weapon-image"
-                      src="/images/weapon/695cedb1ff72589173c85ce61ad4dbc9e025249a.png"
-                      alt="Nautilus 47"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      class="weapon-image"
-                      src="/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png"
-                      alt="Hydra Splatling"
+                      :src="'/images/weapon/' + weapons[weapon]"
                     />
                   </li>
                   <li>
                     <img
                       class="special-image"
-                      src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png"
-                      alt="Splat-Bomb Launcher"
+                      :src="'/images/special/' + specials[player.special_id]"
                     />
                   </li>
                 </ul>

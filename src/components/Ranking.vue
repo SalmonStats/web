@@ -7,6 +7,7 @@ interface ShiftRankParam {
   ikura_num: number;
   dead_count?: number;
   help_count?: number;
+  grade_point?: number;
 }
 
 interface ShiftRank {
@@ -41,7 +42,7 @@ class Ranker {
             case RankType.JOB_NUM:
               return player.count;
             case RankType.GRADE_POINT:
-              return 0;
+              return player.max.grade_point;
             case RankType.GOLDEN_IKURA_NUM:
               return player.sum.golden_ikura_num;
             case RankType.IKURA_NUM:
@@ -63,7 +64,7 @@ class Ranker {
             case RankType.JOB_NUM:
               return player.count;
             case RankType.GRADE_POINT:
-              return 0;
+              return player.max.grade_point;
             case RankType.GOLDEN_IKURA_NUM:
               return player.max.golden_ikura_num;
             case RankType.IKURA_NUM:
@@ -196,7 +197,7 @@ function typeName(index: AggregationType) {
         </label>
       </li>
     </ol>
-    <h2>TOP 100</h2>
+    <h2>TOP 50</h2>
     <ol class="ranking-list">
       <li
         class="ranking-list-item"
@@ -231,6 +232,8 @@ function typeName(index: AggregationType) {
 
 <style lang="scss" scoped>
 .ranking {
+  margin: 0 auto;
+  max-width: 480px;
   text-align: center;
 
   h1 {
