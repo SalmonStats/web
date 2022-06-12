@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from '@vue/reactivity'
+import { ref } from '@vue/reactivity';
 
-const salmon_id = useRouter().currentRoute.value.params.salmon_id
+const salmon_id = useRouter().currentRoute.value.params.salmon_id;
 
-const { t, availableLocales, locale } = useI18n()
+const { t, availableLocales, locale } = useI18n();
 
 enum WaterLevel {
   low = 'low',
@@ -22,52 +22,58 @@ enum EventType {
 }
 
 interface WaveResult {
-  event_type: number
-  water_level: number
-  golden_ikura_num: number
-  golden_ikura_pop_num: number
-  quota_num: number
-  ikura_num: number
+  event_type: number;
+  water_level: number;
+  golden_ikura_num: number;
+  golden_ikura_pop_num: number;
+  quota_num: number;
+  ikura_num: number;
 }
 
 interface JobResult {
-  failure_reason: string
-  failure_wave: number
-  is_clear: boolean
+  failure_reason: string;
+  failure_wave: number;
+  is_clear: boolean;
 }
 
 interface PlayerResult {
-  nsaid: string
-  name: string
-  boss_kill_counts: number[]
-  dead_count: number
-  golden_ikura_num: number
-  ikura_num: number
-  special_id: number
-  spacial_counts: number[]
-  weapon_list: number[]
+  nsaid: string;
+  name: string;
+  boss_kill_counts: number[];
+  dead_count: number;
+  golden_ikura_num: number;
+  ikura_num: number;
+  special_id: number;
+  spacial_counts: number[];
+  weapon_list: number[];
 }
 
 interface Result {
-  salmon_id: number
-  golden_ikura_num: number
-  ikura_num: number
-  members: string[]
-  waves: WaveResult[]
-  job_result: JobResult
-  players: PlayerResult[]
+  salmon_id: number;
+  golden_ikura_num: number;
+  ikura_num: number;
+  members: string[];
+  waves: WaveResult[];
+  job_result: JobResult;
+  players: PlayerResult[];
 }
 
-const result: Result = ref<Result>(await (await fetch(`https://api-dev.splatnet2.com/v1/results/${salmon_id}`, { cache: 'force-cache' })).json())
+const result: Result = ref<Result>(
+  await (
+    await fetch(`${import.meta.env.VITE_SERVER_URL}/v1/results/${salmon_id}`, {
+      cache: 'force-cache',
+    })
+  ).json()
+);
 
 function get_event_type(event_id: number): string {
-  const event_type = Object.values(EventType)[event_id]
-  return t(`event_type.${event_type}`)
+  const event_type = Object.values(EventType)[event_id];
+  return t(`event_type.${event_type}`);
 }
 
 function get_water_level(water_id: number): string {
-  const water_level = Object.values(WaterLevel)[water_id]
-  return t(`water_level.${water_level}`)
+  const water_level = Object.values(WaterLevel)[water_id];
+  return t(`water_level.${water_level}`);
 }
 </script>
 
@@ -77,19 +83,41 @@ function get_water_level(water_id: number): string {
       <ul class="wave">
         <li v-for="(wave, index) in result.waves" :key="wave.quota_num">
           <ul class="wave-card">
-            <li class="wave-result" :class="{ gj: result.job_result.failure_wave !== index + 1, ng: result.job_result.failure_wave === index + 1 }">
-              {{ result.job_result.failure_wave !== index + 1 ? t("result.is_clear") : t("result.is_failure") }}
+            <li
+              class="wave-result"
+              :class="{
+                gj: result.job_result.failure_wave !== index + 1,
+                ng: result.job_result.failure_wave === index + 1,
+              }"
+            >
+              {{
+                result.job_result.failure_wave !== index + 1
+                  ? t('result.is_clear')
+                  : t('result.is_failure')
+              }}
             </li>
-            <li v-if="result.job_result.failure_wave === index + 1" class="failure-reason">
-              {{ result.job_result.failure_reason === "time_limit" ? t("result.time_limit") : t("result.wipe_out") }}
+            <li
+              v-if="result.job_result.failure_wave === index + 1"
+              class="failure-reason"
+            >
+              {{
+                result.job_result.failure_reason === 'time_limit'
+                  ? t('result.time_limit')
+                  : t('result.wipe_out')
+              }}
             </li>
-            <li class="wave-num">
-              {{ t("result.wave") }} {{ index + 1 }}
-            </li>
+            <li class="wave-num">{{ t('result.wave') }} {{ index + 1 }}</li>
             <li class="quota-num">
               {{ wave.golden_ikura_num }}/{{ wave.quota_num }}
             </li>
-            <li class="water-level" :class="{ high: wave.water_level === 2, normal: wave.water_level === 1, low: wave.water_level === 0 }">
+            <li
+              class="water-level"
+              :class="{
+                high: wave.water_level === 2,
+                normal: wave.water_level === 1,
+                low: wave.water_level === 0,
+              }"
+            >
               {{ get_water_level(wave.water_level) }}
             </li>
             <li class="event-type">
@@ -101,12 +129,26 @@ function get_water_level(water_id: number): string {
       <ul class="wave-detail">
         <li v-for="wave in result.waves" :key="wave.quota_num">
           <p class="golden-ikura-pop-num">
-            <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>{{ t("result.golden_ikura_num_appearances") }}
+            <span class="golden-ikura-icon screen-reader-text"
+              >Golden Eggs collected</span
+            >{{ t('result.golden_ikura_num_appearances') }}
             <span class="num">{{ wave.golden_ikura_pop_num }}</span>
           </p>
           <ul class="special-count">
-            <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li>
-            <li><img class="special-image" src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png" alt="Sting Ray"></li>
+            <li>
+              <img
+                class="special-image"
+                src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png"
+                alt="Splat-Bomb Launcher"
+              />
+            </li>
+            <li>
+              <img
+                class="special-image"
+                src="/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png"
+                alt="Sting Ray"
+              />
+            </li>
           </ul>
         </li>
       </ul>
@@ -114,40 +156,85 @@ function get_water_level(water_id: number): string {
     <section class="team-member">
       <div class="team-member-header section-header">
         <h3>Job Crew</h3>
-      </div><ul class="team-member-list">
+      </div>
+      <ul class="team-member-list">
         <li v-for="player in result.players" :key="player.nsaid" class="">
-          <router-link class=" internal-link" :to="`/users/${player.nsaid}`">
+          <router-link class="internal-link" :to="`/users/${player.nsaid}`">
             <div class="member inklings">
               <div class="player-info">
                 <h4 class="player-name">
                   <span>{{ player.name }}</span>
-                </h4><ul class="coop-weapons-list">
-                  <li><img class="weapon-image" src="/images/weapon/6d9246d994614a666aca4f24864c69d660b395dd.png" alt="Grizzco Charger"></li>
-                  <li><img class="weapon-image" src="/images/weapon/695cedb1ff72589173c85ce61ad4dbc9e025249a.png" alt="Nautilus 47"></li>
-                  <li><img class="weapon-image" src="/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png" alt="Hydra Splatling"></li>
-                  <li><img class="special-image" src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png" alt="Splat-Bomb Launcher"></li>
-                </ul><p class="boss-count">
-                  {{ t("result.boss_salmonids_defeated") }} <span>{{ player.boss_kill_counts.reduce((prev, next) => prev + next, 0) }}</span>
+                </h4>
+                <ul class="coop-weapons-list">
+                  <li>
+                    <img
+                      class="weapon-image"
+                      src="/images/weapon/6d9246d994614a666aca4f24864c69d660b395dd.png"
+                      alt="Grizzco Charger"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      class="weapon-image"
+                      src="/images/weapon/695cedb1ff72589173c85ce61ad4dbc9e025249a.png"
+                      alt="Nautilus 47"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      class="weapon-image"
+                      src="/images/weapon/3a92a1fa8320222ca300d3c3ac25474c5077c304.png"
+                      alt="Hydra Splatling"
+                    />
+                  </li>
+                  <li>
+                    <img
+                      class="special-image"
+                      src="/images/special/18990f646c551ee77c5b283ec814e371f692a553.png"
+                      alt="Splat-Bomb Launcher"
+                    />
+                  </li>
+                </ul>
+                <p class="boss-count">
+                  {{ t('result.boss_salmonids_defeated') }}
+                  <span>{{
+                    player.boss_kill_counts.reduce(
+                      (prev, next) => prev + next,
+                      0
+                    )
+                  }}</span>
                 </p>
-              </div><ul class="job-result">
+              </div>
+              <ul class="job-result">
                 <li>
                   <p class="golden-ikura">
-                    <span class="golden-ikura-icon screen-reader-text">Golden Eggs collected</span>
+                    <span class="golden-ikura-icon screen-reader-text"
+                      >Golden Eggs collected</span
+                    >
                     <span class="num">{{ player.golden_ikura_num }}</span>
                   </p>
-                </li><li>
+                </li>
+                <li>
                   <p class="ikura">
-                    <span class="ikura-count-icon screen-reader-text">Power Eggs collected</span>
+                    <span class="ikura-count-icon screen-reader-text"
+                      >Power Eggs collected</span
+                    >
                     <span class="num"> {{ player.ikura_num }}</span>
                   </p>
-                </li><li>
+                </li>
+                <li>
                   <p class="salmon-help-count">
-                    <span class="salmon-help-count-icon screen-reader-text">Crew members rescued</span>
+                    <span class="salmon-help-count-icon screen-reader-text"
+                      >Crew members rescued</span
+                    >
                     <span class="num">{{ player.help_count }}</span>
                   </p>
-                </li><li>
+                </li>
+                <li>
                   <p class="salmon-dead-count">
-                    <span class="salmon-dead-count-icon screen-reader-text">Number of times rescued</span>
+                    <span class="salmon-dead-count-icon screen-reader-text"
+                      >Number of times rescued</span
+                    >
                     <span class="num">{{ player.dead_count }}</span>
                   </p>
                 </li>
@@ -194,10 +281,10 @@ function get_water_level(water_id: number): string {
 
   .water-level::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 100%;
     background: #000;
-    opacity: .2;
+    opacity: 0.2;
     bottom: 0;
     left: 0;
     border-radius: 0 0 3px 3px;
@@ -234,7 +321,7 @@ function get_water_level(water_id: number): string {
     &::before {
       position: absolute;
       display: block;
-      content: "";
+      content: '';
       width: 43px;
       height: 46px;
       top: 50%;
@@ -272,7 +359,7 @@ function get_water_level(water_id: number): string {
       color: #000;
       padding-bottom: 16px;
       border-radius: 3px;
-      width: calc(100%/3 - 16px/3);
+      width: calc(100% / 3 - 16px / 3);
       transform: rotate(-2deg);
       will-change: transform;
 
@@ -282,7 +369,7 @@ function get_water_level(water_id: number): string {
 
       &::after {
         position: absolute;
-        content: "";
+        content: '';
         display: block;
         width: 100%;
         height: 100%;
@@ -300,11 +387,12 @@ function get_water_level(water_id: number): string {
       }
 
       &::before {
-        background: #e5f100 url(/images/bundled/3be424b57f616fc54f4b33e32ee4d964.png);
+        background: #e5f100
+          url(/images/bundled/3be424b57f616fc54f4b33e32ee4d964.png);
         background-size: 80px 80px;
         z-index: -1;
         position: absolute;
-        content: "";
+        content: '';
         display: block;
         width: 100%;
         height: 100%;
@@ -352,8 +440,9 @@ function get_water_level(water_id: number): string {
 
       &::before {
         display: inline-block;
-        content: "";
-        background: url(/images/bundled/3aa6fb4ec1534196ede450667c1183dc.png) 50% no-repeat;
+        content: '';
+        background: url(/images/bundled/3aa6fb4ec1534196ede450667c1183dc.png)
+          50% no-repeat;
         background-size: contain;
         width: 15px;
         height: 15px;
@@ -362,7 +451,7 @@ function get_water_level(water_id: number): string {
       }
 
       .num::before {
-        content: "X";
+        content: 'X';
         font-size: 8px;
         padding-right: 2px;
       }
@@ -370,7 +459,7 @@ function get_water_level(water_id: number): string {
 
     > li {
       justify-content: center;
-      width: calc(100%/3 - 16px/3);
+      width: calc(100% / 3 - 16px / 3);
       transform: rotate(-2deg);
       will-change: transform;
 
@@ -397,7 +486,7 @@ function get_water_level(water_id: number): string {
     &::before {
       position: absolute;
       display: block;
-      content: "";
+      content: '';
       width: 188px;
       height: 162px;
       background: #39e464;
@@ -411,7 +500,7 @@ function get_water_level(water_id: number): string {
       mask-repeat: no-repeat;
       top: -50px;
       left: calc(50% - 280px);
-      opacity: .6;
+      opacity: 0.6;
       z-index: -1;
     }
   }
@@ -436,7 +525,7 @@ function get_water_level(water_id: number): string {
       mask-size: 100% 100%;
       position: absolute;
       display: block;
-      content: "";
+      content: '';
       width: 100%;
       height: 100%;
       top: 1px;
@@ -479,7 +568,7 @@ function get_water_level(water_id: number): string {
 
   .boss-count {
     span:before {
-      content: "X";
+      content: 'X';
       font-size: 9px;
       padding-right: 2px;
     }
@@ -509,9 +598,12 @@ function get_water_level(water_id: number): string {
     }
   }
 
-  .golden-ikura, .ikura, .salmon-dead-count, .salmon-help-count {
+  .golden-ikura,
+  .ikura,
+  .salmon-dead-count,
+  .salmon-help-count {
     position: relative;
-    background-color: rgb(0, 0, 0, .75);
+    background-color: rgb(0, 0, 0, 0.75);
     height: 24px;
     line-height: 24px;
     padding-right: 6px;
@@ -544,12 +636,15 @@ function get_water_level(water_id: number): string {
     left: 4px;
   }
 
-  .golden-ikura::before, .ikura::before, .salmon-dead-count::before, .salmon-help-count::before {
+  .golden-ikura::before,
+  .ikura::before,
+  .salmon-dead-count::before,
+  .salmon-help-count::before {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
-    content: "";
+    content: '';
     background-repeat: no-repeat;
     background-position: 0;
     height: 20px;
