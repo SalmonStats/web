@@ -49,3 +49,12 @@ card:
   total_points: るいけいポイント
   last_jobs_average: 最近50バイトのへいきん
   average_waves_cleared: へいきんクリアWave数
+rank:
+  golden_eggs: 金イクラ
+  power_eggs: イクラ
+  shifts_worked: バイト回数
+  grade_point: 評価レート
+  type:
+    total: 総合
+    average: 平均
+    best: 最高

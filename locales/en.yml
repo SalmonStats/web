@@ -49,3 +49,12 @@ card:
   total_points: Total points
   last_jobs_average: Last 50 Jobs Average
   average_waves_cleared: Average Waves Cleared
+rank:
+  golden_eggs: Golden Eggs
+  power_eggs: Power Eggs
+  shifts_worked: Worked
+  grade_point: Grade
+  type:
+    total: Total
+    average: Average
+    best: Best
