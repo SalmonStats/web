@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { t, availableLocales, locale } = useI18n();
-import { ref } from '@vue/reactivity';
+import { Ref, ref } from '@vue/reactivity';
 
 interface ShiftRankParam {
   golden_ikura_num: number;
@@ -11,10 +11,67 @@ interface ShiftRankParam {
 
 interface ShiftRank {
   nsaid: string;
+  nickname: string;
+  thumbnail_url: string;
   sum: ShiftRankParam;
   avg: ShiftRankParam;
   max: ShiftRankParam;
   count: number;
+}
+
+class Ranker {
+  protected nsaid: string;
+  protected nickname: string;
+  protected thumbnail_url: string;
+  protected score: number;
+
+  constructor(
+    player: ShiftRank,
+    type: Ref<AggregationType>,
+    mode: Ref<RankType>
+  ) {
+    this.nsaid = player.nsaid;
+    this.nickname = player.nickname;
+    this.thumbnail_url = player.thumbnail_url;
+    this.score = (() => {
+      console.log(type.value, mode.value);
+      switch (type.value) {
+        case AggregationType.TOTAL:
+          switch (mode.value) {
+            case RankType.JOB_NUM:
+              return player.count;
+            case RankType.GRADE_POINT:
+              return 0;
+            case RankType.GOLDEN_IKURA_NUM:
+              return player.sum.golden_ikura_num;
+            case RankType.IKURA_NUM:
+              return player.sum.ikura_num;
+          }
+        case AggregationType.AVERAGE:
+          switch (mode.value) {
+            case RankType.JOB_NUM:
+              return player.count;
+            case RankType.GRADE_POINT:
+              return 0;
+            case RankType.GOLDEN_IKURA_NUM:
+              return player.avg.golden_ikura_num.toFixed(3);
+            case RankType.IKURA_NUM:
+              return player.avg.ikura_num.toFixed(3);
+          }
+        case AggregationType.Best:
+          switch (mode.value) {
+            case RankType.JOB_NUM:
+              return player.count;
+            case RankType.GRADE_POINT:
+              return 0;
+            case RankType.GOLDEN_IKURA_NUM:
+              return player.max.golden_ikura_num;
+            case RankType.IKURA_NUM:
+              return player.max.ikura_num;
+          }
+      }
+    })();
+  }
 }
 
 enum AggregationType {
@@ -26,8 +83,8 @@ enum AggregationType {
 enum RankType {
   JOB_NUM = 'Shifts Worked',
   GRADE_POINT = 'Grade Point',
-  IKURA_NUM = 'Golden Eggs',
-  GOLDEN_IKURA_NUM = 'Power Eggs',
+  IKURA_NUM = 'Power Eggs',
+  GOLDEN_IKURA_NUM = 'Golden Eggs',
 }
 
 const request = async () => {
@@ -38,15 +95,30 @@ const request = async () => {
   return response.map((result) => ref<ShiftRank>(result).value);
 };
 
-const rankers: ShiftRank[] = ref(await request());
+const data: ShiftRank[] = await request();
+const rankers: Ref<Ranker[]> = ref([]);
 
 // 現在選択されている集計タイプ
-const selectedType: number = ref(0);
+const selectedType = ref(AggregationType.TOTAL);
 // 現在選択されている集計モード
-const selectedMode: number = ref(0);
+const selectedMode = ref(RankType.JOB_NUM);
 
-function changeAggregationType(index: number) {
-  selectedType.value = index;
+function changeAggregationType(mode: AggregationType) {
+  selectedType.value = mode;
+  // データからランキング表を作成
+  rankers.value = data.map((player) => {
+    return new Ranker(player, selectedType, selectedMode);
+  });
+  rankers.value = rankers.value.sort((a, b) => b.score - a.score);
+}
+
+function changeRankType(mode: RankType) {
+  selectedMode.value = mode;
+  // データからランキング表を作成
+  rankers.value = data.map((player) => {
+    return new Ranker(player, selectedType, selectedMode);
+  });
+  rankers.value = rankers.value.sort((a, b) => b.score - a.score);
 }
 
 function className(index: number) {
@@ -62,61 +134,66 @@ function className(index: number) {
   }
 }
 
-function modeName(index: number) {
+function modeName(index: RankType) {
   switch (index) {
-    case 0:
+    case RankType.JOB_NUM:
       return t('rank.shifts_worked');
-    case 1:
+    case RankType.GRADE_POINT:
       return t('rank.grade_point');
-    case 2:
+    case RankType.GOLDEN_IKURA_NUM:
       return t('rank.golden_eggs');
-    case 3:
+    case RankType.IKURA_NUM:
       return t('rank.power_eggs');
   }
 }
 
-function typeName(index: number) {
+function typeName(index: AggregationType) {
   switch (index) {
-    case 0:
+    case AggregationType.TOTAL:
       return t('rank.type.total');
-    case 1:
+    case AggregationType.AVERAGE:
       return t('rank.type.average');
-    case 2:
+    case AggregationType.Best:
       return t('rank.type.best');
-    case 3:
   }
 }
 </script>
 
 <template>
   <section class="ranking">
-    <h1>Mode: {{ typeName(selectedType) }}</h1>
+    <h1>Mode: {{ selectedMode }}</h1>
     <ol class="aggregation-mode-list">
       <li
         class="aggregation-mode-list-item"
-        v-for="(mode, index) in Object.values(AggregationType)"
+        v-for="mode in Object.values(AggregationType)"
         :key="mode"
       >
         <input
           type="radio"
           name="aggregation-mode"
-          :value="index"
+          :value="mode"
           v-model="selectedType"
         />
-        <label @click="changeAggregationType(index)">
-          {{ mode }}
+        <label @click="changeAggregationType(mode)">
+          {{ typeName(mode) }}
         </label>
       </li>
     </ol>
     <ol class="ranking-mode-list">
       <li
         class="ranking-mode-list-item"
-        v-for="(mode, index) in Object.values(RankType)"
+        v-for="mode in Object.values(RankType)"
         :key="mode"
       >
-        <p :class="className(index)">
-          {{ modeName(index) }}
-        </p>
+        <input
+          type="radio"
+          name="ranking-type"
+          :value="mode"
+          v-model="selectedMode"
+        />
+        <label @click="changeRankType(mode)">
+          {{ modeName(mode) }}
+        </label>
       </li>
     </ol>
     <h2>TOP 100</h2>
@@ -128,7 +205,7 @@ function typeName(index: number) {
       >
         <div class="ranking-list-header">
           <span class="rank">{{ index + 1 }}</span
-          ><span class="score">{{ ranker.count }}</span
+          ><span class="score">{{ ranker.score }}</span
           ><span class="team-id">ID: {{ ranker.nsaid }}</span>
         </div>
         <ul class="member-list">
@@ -190,11 +267,11 @@ function typeName(index: number) {
 }
 
 .aggregation-mode-list-item {
-  width: calc(80% / 3);
+  width: calc(90% / 3);
 }
 
 .ranking-mode-list-item {
-  width: calc(80% / 4);
+  width: calc(90% / 4);
 }
 
 // デフォルトのチェックボックスを無効化
