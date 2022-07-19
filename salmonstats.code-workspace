@@ -1,0 +1,12 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "i18n-ally.sourceLanguage": "ja",
+    "extensions.ignoreRecommendations": false,
+    "i18n-ally.keystyle": "nested"
+  }
+}
