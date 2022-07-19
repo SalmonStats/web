@@ -5,23 +5,23 @@ import NavigationView from "../views/Navigation.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "/tab1",
+    redirect: "/results",
   },
   {
     path: "/",
     component: NavigationView,
     children: [
       {
-        path: "tab1",
-        component: () => import("@/views/Tab1Page.vue"),
+        path: "results",
+        component: () => import("@/views/ResultsView.vue"),
       },
       {
-        path: "tab2",
-        component: () => import("@/views/Tab2Page.vue"),
+        path: "schedules",
+        component: () => import("@/views/SchedulesView.vue"),
       },
       {
-        path: "tab3",
-        component: () => import("@/views/Tab3Page.vue"),
+        path: "users",
+        component: () => import("@/views/UsersView.vue"),
       },
     ],
   },
