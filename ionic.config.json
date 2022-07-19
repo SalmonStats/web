@@ -1,0 +1,7 @@
+{
+  "name": "salmonstats-vue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
