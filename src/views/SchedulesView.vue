@@ -1,27 +1,14 @@
+<script setup lang="ts">
+import { IonPage, IonContent } from '@ionic/vue';
+import CoopSchedules from '@/components/CoopSchedules.vue';
+import CoopHeader from '@/components/CoopHeader.vue';
+</script>
+
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Schedules</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <CoopHeader title="Schedules" />
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Schedules</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
+      <CoopSchedules />
     </ion-content>
   </ion-page>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-
-export default defineComponent({
-  name: 'SchedulesView',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
-});
-</script>

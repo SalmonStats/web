@@ -48,7 +48,10 @@ const i18n = createI18n({
 });
 
 const app = createApp(App)
-  .use(IonicVue)
+  .use(IonicVue, {
+    rippleEffect: false,
+    mode: "md",
+  })
   .use(router)
   .use(i18n)
   .use(VueGtag, { property: { id: "", router } });

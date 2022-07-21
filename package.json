@@ -4,7 +4,8 @@
   "private": true,
   "description": "An Ionic project",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve:dev": "vue-cli-service serve --mode development",
+    "serve:prod": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build",
     "deploy": "vue-cli-service build && firebase deploy",
     "test:unit": "vue-cli-service test:unit",
