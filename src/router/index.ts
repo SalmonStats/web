@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
-import NavigationView from "../views/Navigation.vue";
+import NavigationView from "../views/NavigationView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
