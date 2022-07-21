@@ -1,8 +1,105 @@
 <script setup lang="ts">
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonList, IonItem, IonLabel } from '@ionic/vue';
+import { onMounted, ref, Ref } from 'vue';
+
+interface Schedules {
+  limit: number
+  offset: number
+  results: Schedule[]
+}
+
+interface Schedule {
+  start_time: string
+  stage_id: number
+  end_time: string
+  rare_weapon?: number
+  weapon_list: number[]
+}
+
+const WeaponType: { [name: number]: string } = {
+  "-2": "assets/images/weapons/7076c8181ab5c49d2ac91e43a2d945a46a99c17d.png",
+  "-1": "assets/images/weapons/746f7e90bc151334f0bf0d2a1f0987e311b03736.png",
+  "0": "assets/images/weapon/32d41a5d14de756c3e5a1ee97a9bd8fcb9e69bf5.png",
+  "10": "assets/images/weapon/91b6666bcbfccc204d86f21222a8db22a27d08d0.png",
+  "20": "assets/images/weapon/e5a97d52f12a83a037526588363021f2c1f718b0.png",
+  "30": "assets/images/weapon/c6ab7ebff7af7f7604eb53a12851da880b1ec2c7.png",
+  "40": "assets/images/weapon/e1d09fc9502a81c82137c8dcd5a872eb872af697.png",
+  "50": "assets/images/weapon/df04ddaf086cea94491df553a6d2550230a4da3c.png",
+  "60": "assets/images/weapon/1f2b1db5917ef7a4e62f0e15b8805275e33f2179.png",
+  "70": "assets/images/weapon/2e2b59379b8f14cfed0600f84590be0ecad707b6.png",
+  "80": "assets/images/weapon/df90f6065594378690647c23d42440e2de89c99d.png",
+  "90": "assets/images/weapon/007fb7ed50e76dde495ffb0747421b50dfce8aa3.png",
+  "200": "assets/images/weapon/3f840ce3cc5ac0b8cbf7451079b57e807d8b95f1.png",
+  "210": "assets/images/weapon/cfafc8bc42bcd89058fdb22b7b943fb9f893adb8.png",
+  "220": "assets/images/weapon/109b2b851481510eaacb50afc8ce9fb79b7f20ad.png",
+  "230": "assets/images/weapon/2b684d81508ca5286060767e29dd81ca38303f43.png",
+  "240": "assets/images/weapon/72bdcf5f6077bd7149832153034b3f43d16ac461.png",
+  "250": "assets/images/weapon/8f64580bb033ba86fa0179179cfeb56b5544fda6.png",
+  "300": "assets/images/weapon/202724be5bb5e59457227d087d7c48a32c01db24.png",
+  "310": "assets/images/weapon/45e8847cbaf09bdc86c6e6627236286781b09f0f.png",
+  "400": "assets/images/weapon/b9901d49ef3229d3e62d58fc3e1edc8c48da6873.png",
+  "1000": "assets/images/weapon/123db7c37066e10e2c437656db2a26f18898e6b6.png",
+  "1010": "assets/images/weapon/1041dbdd11b3036671148d47c2e0798cecf3dba2.png",
+  "1020": "assets/images/weapon/3d274190988ad20dd1b02825448edbb6e12c720c.png",
+  "1030": "assets/images/weapon/e32ed68bb18628c5ede5816a2fbc2b8fcdd04124.png",
+  "1100": "assets/images/weapon/1f94c29067c918ac9143b756dc607ff0f8cf4e63.png",
+  "1110": "assets/images/weapon/f1d5740dfb7d87f7e43974bbe5585445368741b8.png",
+  "2000": "assets/images/weapon/5a0a20324f1374a363363d721a605849e36ffff2.png",
+  "2010": "assets/images/weapon/1ed94885bef2b0e498ed4dd76bea9064c85cfc94.png",
+  "2020": "assets/images/weapon/0ec07bb00918f071975b35191e0860152bdcb321.png",
+  "2030": "assets/images/weapon/a6279990ad871fccdd9f2a64a2951f8726f45c48.png",
+  "2040": "assets/images/weapon/fd4b89e84b375f01290185f2236dbee935dd1682.png",
+  "2050": "assets/images/weapon/6ecbbb897d6c59a5c03097216ef4f803366ea6fa.png",
+  "2060": "assets/images/weapon/26d523e6eee3d57dc6c5f531dfc1747ffd46b8b8.png",
+  "3000": "assets/images/weapon/3963a3fb1ff8038a42072e913587fc6f9aa00d71.png",
+  "3010": "assets/images/weapon/ad921a57ab1b7721c50873c082bb34591b61021c.png",
+  "3020": "assets/images/weapon/27a026e7dec5a068777bb7883f50451aec799d71.png",
+  "3030": "assets/images/weapon/2835f6d61a4296b4ac3876337884a0c453a4fa4f.png",
+  "3040": "assets/images/weapon/6f1c2a339db6ec0dccb65704adee2db93c768245.png",
+  "4000": "assets/images/weapon/2a1c5ca0e68919b4d655bd860cac3b2942b95498.png",
+  "4010": "assets/images/weapon/6f42c9f8fde07510a01072a669125545f6effb99.png",
+  "4020": "assets/images/weapon/e34bbd580e49695b97d5fc4464cc901d4fe08ce5.png",
+  "4030": "assets/images/weapon/f208b6222acb5014ab96285e9b9a3e98039c884b.png",
+  "4040": "assets/images/weapon/d79b99092aa03dc249b1f767197c1ecbda9d3cd7.png",
+  "5000": "assets/images/weapon/cc4bc30ff53bf2b45bd5e3dadceb39d52b95761f.png",
+  "5010": "assets/images/weapon/bb5caf24e43f8c7ceb126670bf24fd3aa9a3c3fc.png",
+  "5020": "assets/images/weapon/7d6032f0ceee14c4607385b848c6e486b84a2865.png",
+  "5030": "assets/images/weapon/aaead5ff0b63cdcb989b211d649b2552bb3e3a1b.png",
+  "5040": "assets/images/weapon/ba750d284eb067abdc995435c3358eed4e6f90fa.png",
+  "6000": "assets/images/weapon/f1fa6db2e21f32cd1c2cd093ec24f1a450d4650c.png",
+  "6010": "assets/images/weapon/cdb032aa993f4836580ce4edac06de0138833299.png",
+  "6020": "assets/images/weapon/15fe3fe6bbec24ddb5fdc3ffd06585bc82440531.png",
+  "20000": "/images/weapon/db39203d81d60a7370d3ae966bc02ed14398366f.png",
+  "20010": "/images/weapon/7d5ff3a57c3c3aaf28217bc3a79e02d665f13ba7.png",
+  "20020": "/images/weapon/95077fe72924bcd64f37cd43aa49a12cd6329a7e.png",
+  "20030": "/images/weapon/c2c0653d3246ea6df2b595c68e907f68eda49b08.png"
+}
+
+const url = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}/schedules`;
+const schedules: Ref<Schedule[]> = ref<Schedule[]>([])
+
+onMounted(() => {
+  fetch(url)
+    .then(res => res.json())
+    .then((res: Schedules) => {
+      schedules.value = res.results;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+})
 </script>
 
 <template>
   <ion-list>
+    <ion-item v-for="schedule in schedules" :key="schedule.start_time">
+      <ion-label>{{ schedule.stage_id }}</ion-label>
+      <ion-img class="coop-weapon-list-item" v-for="weaponId in schedule.weapon_list" :key="weaponId"
+        :src="WeaponType[weaponId]"></ion-img>
+    </ion-item>
   </ion-list>
 </template>
+
+<style lang="scss" scoped>
+@import "../theme/style.scss";
+</style>

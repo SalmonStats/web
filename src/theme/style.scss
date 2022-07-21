@@ -10,3 +10,9 @@
 .result-coop-wave {
   display: flex;
 }
+
+ion-img {
+  &.coop-weapon-list-item {
+    max-width: 45px;
+  }
+}
