@@ -114,6 +114,11 @@ onMounted(() => {
           :swipe-gesture="false" animated="false">
           <ion-label>
             <p>
+              {{ dayjs(schedule.start_time).format('YYYY/MM/DD HH:mm') }} - {{
+                  dayjs(schedule.end_time).format('YYYY/MM/DD HH:mm')
+              }}
+            </p>
+            <p>
               {{ StageName[schedule.stage_id] }}
             </p>
           </ion-label>
