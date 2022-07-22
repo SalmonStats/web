@@ -20,6 +20,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/SchedulesView.vue"),
       },
       {
+        path: "schedules/:schedule_id",
+        component: () => import("@/views/StatsView.vue"),
+      },
+      {
         path: "users",
         component: () => import("@/views/UsersView.vue"),
       },

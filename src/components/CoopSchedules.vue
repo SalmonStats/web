@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IonList, IonItem, IonLabel, IonImg, IonContent } from '@ionic/vue';
 import { onMounted, ref, Ref, getCurrentInstance } from 'vue';
+import dayjs from 'dayjs';
 
 interface Schedules {
   limit: number
@@ -85,6 +86,7 @@ const WeaponType: { [name: number]: string } = {
 
 const app = getCurrentInstance()
 const schedules: Ref<Schedule[]> = ref<Schedule[]>([])
+const isOpen: Ref<boolean> = ref(false)
 
 onMounted(() => {
   const baseURL = app?.appContext.config.globalProperties.$baseURL
@@ -104,28 +106,12 @@ onMounted(() => {
 })
 </script>
 
-<script lang="ts">
-import CoopStats from '@/components/CoopStats.vue';
-import { modalController } from '@ionic/vue';
-
-export default {
-  methods: {
-    async present() {
-      const modal = await modalController.create({
-        component: CoopStats,
-        canDismiss: true,
-        showBackdrop: true
-      })
-      modal.present()
-    }
-  }
-}
-</script>
 <template>
   <ion-content>
     <ion-list>
       <template v-for="schedule in schedules" :key="schedule.start_time">
-        <ion-item button @click="present">
+        <ion-item button :router-link="`schedules/${dayjs(schedule.start_time).unix()}`" :router-animation="undefined"
+          :swipe-gesture="false" animated="false">
           <ion-label>
             <p>
               {{ StageName[schedule.stage_id] }}
