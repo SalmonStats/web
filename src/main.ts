@@ -56,6 +56,8 @@ const app = createApp(App)
   .use(i18n)
   .use(VueGtag, { property: { id: "", router } });
 
+app.config.globalProperties.$baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
+
 router.isReady().then(() => {
   app.mount("#app");
 });

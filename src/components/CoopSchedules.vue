@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { IonList, IonItem, IonLabel } from '@ionic/vue';
-import { onMounted, ref, Ref } from 'vue';
+import { IonList, IonItem, IonLabel, IonImg } from '@ionic/vue';
+import { onMounted, ref, Ref, getCurrentInstance } from 'vue';
 
 interface Schedules {
   limit: number
@@ -16,9 +16,17 @@ interface Schedule {
   weapon_list: number[]
 }
 
+const StageName: { [name: number]: string } = {
+  5000: "Spawning Grounds",
+  5001: "Marooner's Bay",
+  5002: "Lost Outpost",
+  5003: "Salmonid Smokeyard",
+  5004: "Ruins of Ark Polaris",
+};
+
 const WeaponType: { [name: number]: string } = {
-  "-2": "assets/images/weapons/7076c8181ab5c49d2ac91e43a2d945a46a99c17d.png",
-  "-1": "assets/images/weapons/746f7e90bc151334f0bf0d2a1f0987e311b03736.png",
+  "-2": "assets/images/weapon/7076c8181ab5c49d2ac91e43a2d945a46a99c17d.png",
+  "-1": "assets/images/weapon/746f7e90bc151334f0bf0d2a1f0987e311b03736.png",
   "0": "assets/images/weapon/32d41a5d14de756c3e5a1ee97a9bd8fcb9e69bf5.png",
   "10": "assets/images/weapon/91b6666bcbfccc204d86f21222a8db22a27d08d0.png",
   "20": "assets/images/weapon/e5a97d52f12a83a037526588363021f2c1f718b0.png",
@@ -69,16 +77,22 @@ const WeaponType: { [name: number]: string } = {
   "6000": "assets/images/weapon/f1fa6db2e21f32cd1c2cd093ec24f1a450d4650c.png",
   "6010": "assets/images/weapon/cdb032aa993f4836580ce4edac06de0138833299.png",
   "6020": "assets/images/weapon/15fe3fe6bbec24ddb5fdc3ffd06585bc82440531.png",
-  "20000": "/images/weapon/db39203d81d60a7370d3ae966bc02ed14398366f.png",
-  "20010": "/images/weapon/7d5ff3a57c3c3aaf28217bc3a79e02d665f13ba7.png",
-  "20020": "/images/weapon/95077fe72924bcd64f37cd43aa49a12cd6329a7e.png",
-  "20030": "/images/weapon/c2c0653d3246ea6df2b595c68e907f68eda49b08.png"
+  "20000": "assets/images/weapon/db39203d81d60a7370d3ae966bc02ed14398366f.png",
+  "20010": "assets/images/weapon/7d5ff3a57c3c3aaf28217bc3a79e02d665f13ba7.png",
+  "20020": "assets/images/weapon/95077fe72924bcd64f37cd43aa49a12cd6329a7e.png",
+  "20030": "assets/images/weapon/c2c0653d3246ea6df2b595c68e907f68eda49b08.png"
 }
 
-const url = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}/schedules`;
+const app = getCurrentInstance()
 const schedules: Ref<Schedule[]> = ref<Schedule[]>([])
 
 onMounted(() => {
+  const baseURL = app?.appContext.config.globalProperties.$baseURL
+  if (baseURL === null) {
+    return
+  }
+
+  const url = `${baseURL}/schedules`
   fetch(url)
     .then(res => res.json())
     .then((res: Schedules) => {
@@ -93,7 +107,11 @@ onMounted(() => {
 <template>
   <ion-list>
     <ion-item v-for="schedule in schedules" :key="schedule.start_time">
-      <ion-label>{{ schedule.stage_id }}</ion-label>
+      <ion-label>
+        <p>
+          {{ StageName[schedule.stage_id] }}
+        </p>
+      </ion-label>
       <ion-img class="coop-weapon-list-item" v-for="weaponId in schedule.weapon_list" :key="weaponId"
         :src="WeaponType[weaponId]"></ion-img>
     </ion-item>
