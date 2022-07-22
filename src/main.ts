@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
-import { IonicVue } from "@ionic/vue";
+import { IonicVue, isPlatform } from "@ionic/vue";
 import "./registerServiceWorker";
 
 /* Core CSS required for Ionic components to work properly */
@@ -49,8 +49,10 @@ const i18n = createI18n({
 
 const app = createApp(App)
   .use(IonicVue, {
+    animated: !isPlatform("mobileweb"),
     rippleEffect: false,
     mode: "md",
+    swipeBackEnabled: false,
   })
   .use(router)
   .use(i18n)
