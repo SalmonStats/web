@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IonList, IonItem, IonLabel, IonImg } from '@ionic/vue';
+import { IonList, IonItem, IonLabel, IonImg, IonContent } from '@ionic/vue';
 import { onMounted, ref, Ref, getCurrentInstance } from 'vue';
 
 interface Schedules {
@@ -104,18 +104,39 @@ onMounted(() => {
 })
 </script>
 
+<script lang="ts">
+import CoopStats from '@/components/CoopStats.vue';
+import { modalController } from '@ionic/vue';
+
+export default {
+  methods: {
+    async present() {
+      const modal = await modalController.create({
+        component: CoopStats,
+        canDismiss: true,
+        showBackdrop: true
+      })
+      modal.present()
+    }
+  }
+}
+</script>
 <template>
-  <ion-list>
-    <ion-item v-for="schedule in schedules" :key="schedule.start_time">
-      <ion-label>
-        <p>
-          {{ StageName[schedule.stage_id] }}
-        </p>
-      </ion-label>
-      <ion-img class="coop-weapon-list-item" v-for="weaponId in schedule.weapon_list" :key="weaponId"
-        :src="WeaponType[weaponId]"></ion-img>
-    </ion-item>
-  </ion-list>
+  <ion-content>
+    <ion-list>
+      <template v-for="schedule in schedules" :key="schedule.start_time">
+        <ion-item button @click="present">
+          <ion-label>
+            <p>
+              {{ StageName[schedule.stage_id] }}
+            </p>
+          </ion-label>
+          <ion-img class="coop-weapon-list-item" v-for="weaponId in schedule.weapon_list" :key="weaponId"
+            :src="WeaponType[weaponId]"></ion-img>
+        </ion-item>
+      </template>
+    </ion-list>
+  </ion-content>
 </template>
 
 <style lang="scss" scoped>
