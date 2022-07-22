@@ -37,7 +37,7 @@ export default defineComponent({
     },
     styles: {
       type: Object as PropType<Partial<CSSStyleDeclaration>>,
-      default: () => {},
+      default: () => {}, // eslint-disable-line
     },
     plugins: {
       type: Array as PropType<Plugin<"pie">[]>,
