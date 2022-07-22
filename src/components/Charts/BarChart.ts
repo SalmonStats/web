@@ -1,27 +1,36 @@
 import { defineComponent, h, PropType } from "vue";
 
-import { Pie } from "vue-chartjs";
+import { Bar } from "vue-chartjs";
+
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
-  ArcElement,
+  BarElement,
   CategoryScale,
+  LinearScale,
   Plugin,
 } from "chart.js";
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+);
 
 export default defineComponent({
-  name: "PieChart",
+  name: "BarChart",
   components: {
-    Pie,
+    Bar,
   },
   props: {
     chartId: {
       type: String,
-      default: "pie-chart",
+      default: "bar-chart",
     },
     width: {
       type: Number,
@@ -40,17 +49,31 @@ export default defineComponent({
       default: () => {}, // eslint-disable-line
     },
     plugins: {
-      type: Array as PropType<Plugin<"pie">[]>,
+      type: Array as PropType<Plugin<"bar">[]>,
       default: () => [],
     },
   },
   setup(props) {
     const chartData = {
-      labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
+      labels: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
       datasets: [
         {
-          backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-          data: [40, 20, 80, 10],
+          label: "Data One",
+          backgroundColor: "#f87979",
+          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
         },
       ],
     };
@@ -61,7 +84,7 @@ export default defineComponent({
     };
 
     return () =>
-      h(Pie, {
+      h(Bar, {
         chartData,
         chartOptions,
         chartId: props.chartId,

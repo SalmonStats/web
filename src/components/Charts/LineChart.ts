@@ -1,27 +1,37 @@
 import { defineComponent, h, PropType } from "vue";
 
-import { Pie } from "vue-chartjs";
+import { Line } from "vue-chartjs";
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
-  ArcElement,
+  LineElement,
+  LinearScale,
+  PointElement,
   CategoryScale,
   Plugin,
 } from "chart.js";
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  CategoryScale
+);
 
 export default defineComponent({
-  name: "PieChart",
+  name: "LineChart",
   components: {
-    Pie,
+    Line,
   },
   props: {
     chartId: {
       type: String,
-      default: "pie-chart",
+      default: "line-chart",
     },
     width: {
       type: Number,
@@ -40,17 +50,18 @@ export default defineComponent({
       default: () => {}, // eslint-disable-line
     },
     plugins: {
-      type: Array as PropType<Plugin<"pie">[]>,
+      type: Array as PropType<Plugin<"line">[]>,
       default: () => [],
     },
   },
   setup(props) {
     const chartData = {
-      labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
       datasets: [
         {
-          backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-          data: [40, 20, 80, 10],
+          label: "Data One",
+          backgroundColor: "#f87979",
+          data: [40, 39, 10, 40, 39, 80, 40],
         },
       ],
     };
@@ -61,7 +72,7 @@ export default defineComponent({
     };
 
     return () =>
-      h(Pie, {
+      h(Line, {
         chartData,
         chartOptions,
         chartId: props.chartId,

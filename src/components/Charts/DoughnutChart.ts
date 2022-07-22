@@ -1,6 +1,6 @@
 import { defineComponent, h, PropType } from "vue";
 
-import { Pie } from "vue-chartjs";
+import { Doughnut } from "vue-chartjs";
 import {
   Chart as ChartJS,
   Title,
@@ -14,14 +14,14 @@ import {
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 export default defineComponent({
-  name: "PieChart",
+  name: "DoughnutChart",
   components: {
-    Pie,
+    Doughnut,
   },
   props: {
     chartId: {
       type: String,
-      default: "pie-chart",
+      default: "doughnut-chart",
     },
     width: {
       type: Number,
@@ -40,7 +40,7 @@ export default defineComponent({
       default: () => {}, // eslint-disable-line
     },
     plugins: {
-      type: Array as PropType<Plugin<"pie">[]>,
+      type: Array as PropType<Plugin<"doughnut">[]>,
       default: () => [],
     },
   },
@@ -61,7 +61,7 @@ export default defineComponent({
     };
 
     return () =>
-      h(Pie, {
+      h(Doughnut, {
         chartData,
         chartOptions,
         chartId: props.chartId,

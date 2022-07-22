@@ -1,27 +1,28 @@
 import { defineComponent, h, PropType } from "vue";
 
-import { Pie } from "vue-chartjs";
+import { Bubble } from "vue-chartjs";
+
 import {
   Chart as ChartJS,
   Title,
   Tooltip,
   Legend,
-  ArcElement,
-  CategoryScale,
+  PointElement,
+  LinearScale,
   Plugin,
 } from "chart.js";
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
+ChartJS.register(Title, Tooltip, Legend, PointElement, LinearScale);
 
 export default defineComponent({
-  name: "PieChart",
+  name: "BubbleChart",
   components: {
-    Pie,
+    Bubble,
   },
   props: {
     chartId: {
       type: String,
-      default: "pie-chart",
+      default: "bubble-chart",
     },
     width: {
       type: Number,
@@ -40,17 +41,54 @@ export default defineComponent({
       default: () => {}, // eslint-disable-line
     },
     plugins: {
-      type: Array as PropType<Plugin<"pie">[]>,
+      type: Array as PropType<Plugin<"bubble">[]>,
       default: () => [],
     },
   },
   setup(props) {
     const chartData = {
-      labels: ["VueJs", "EmberJs", "ReactJs", "AngularJs"],
       datasets: [
         {
-          backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-          data: [40, 20, 80, 10],
+          label: "Data One",
+          backgroundColor: "#f87979",
+          data: [
+            {
+              x: 20,
+              y: 25,
+              r: 5,
+            },
+            {
+              x: 40,
+              y: 10,
+              r: 10,
+            },
+            {
+              x: 30,
+              y: 22,
+              r: 30,
+            },
+          ],
+        },
+        {
+          label: "Data Two",
+          backgroundColor: "#7C8CF8",
+          data: [
+            {
+              x: 10,
+              y: 30,
+              r: 15,
+            },
+            {
+              x: 20,
+              y: 20,
+              r: 10,
+            },
+            {
+              x: 15,
+              y: 8,
+              r: 30,
+            },
+          ],
         },
       ],
     };
@@ -61,7 +99,7 @@ export default defineComponent({
     };
 
     return () =>
-      h(Pie, {
+      h(Bubble, {
         chartData,
         chartOptions,
         chartId: props.chartId,
