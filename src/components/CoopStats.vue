@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonLabel } from '@ionic/vue';
-</script>
+import { onMounted } from 'vue';
 
-<script lang="ts">
-import { modalController } from '@ionic/vue';
-export default {
-  methods: {
-    dismiss() {
-      return modalController.dismiss(null, 'cancel')
-    }
-  }
-}
+onMounted(() => {
+  const url = ""
+})
 </script>
 
 <template>
@@ -19,9 +13,6 @@ export default {
       <ion-title>
         Modal
       </ion-title>
-      <ion-buttons slot="end">
-        <ion-button @click="dismiss()">Close</ion-button>
-      </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content>

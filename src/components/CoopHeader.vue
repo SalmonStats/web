@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IonHeader, IonToolbar, IonButton, IonMenuButton, IonButtons, IonTitle, IonIcon, IonNav } from '@ionic/vue';
+import { IonHeader, IonToolbar, IonButton, IonMenuButton, IonButtons, IonTitle, IonIcon } from '@ionic/vue';
 import { contrastOutline } from 'ionicons/icons';
 
 interface Props {
