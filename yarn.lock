@@ -1234,15 +1234,6 @@
     tar "^6.0.1"
     tslib "^2.0.1"
 
-"@ionic/core@^6.1.14":
-  version "6.1.14"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.14.tgz#63b663bc8c2374fcbf6f12674bc69880726b18be"
-  integrity sha512-tmhumOD7VM7QV3boh8rwMNYOgqBskOtGJPSEaySEmCUy+Y0nXwb0gBqxZ/M6c0JcGwT17gIB2KiQDvZ4O/J8iA==
-  dependencies:
-    "@stencil/core" "^2.16.0"
-    ionicons "^6.0.2"
-    tslib "^2.1.0"
-
 "@ionic/core@^6.1.15":
   version "6.1.15"
   resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.15.tgz#7ecd34c2ac92599d01ec9c25f31888605e570667"
@@ -1335,20 +1326,12 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.0.0":
-  version "6.1.14"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.14.tgz#8b7891754eed8636c4a556ef59b9f681d3795f0d"
-  integrity sha512-RSUSZrl7hCP8grR6NxbV++aY8GndHRuc9ASZbYU2hUJcolOxfuKeRfeSZ7W61MGu0Z3M/8GIxz3KumFvPNujsA==
+"@ionic/vue-router@^6.1.15":
+  version "6.1.15"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.15.tgz#dd81061f3db268033c0d6e2d3d25cec713921d82"
+  integrity sha512-TgmRyRu4ITEl+UkrR8vnMBVJclZYwpA49Y0L5u6KHt5PbBU9/IQ5RQeDTMkBt/1UA3AoIDu9EiWDaIvDWZYQ3A==
   dependencies:
-    "@ionic/vue" "^6.1.14"
-
-"@ionic/vue@^6.1.14":
-  version "6.1.14"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.14.tgz#8da70eee340ac0b9a7b6d6db9deb2086f9ecea46"
-  integrity sha512-DuLqKeLlYgCl8GVNtTxhT5NWYF5yqYVti/yAnwi//rwNNQjFLvUmqsS5K//FsrRX1nEUGqlnwLcbEvLNm/ZzUA==
-  dependencies:
-    "@ionic/core" "^6.1.14"
-    ionicons "^6.0.2"
+    "@ionic/vue" "^6.1.15"
 
 "@ionic/vue@^6.1.15":
   version "6.1.15"

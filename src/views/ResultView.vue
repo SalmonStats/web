@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
-import CoopMenu from '@/components/CoopMenu.vue';
-import BarChart from '@/components/Charts/BarChart';
+import CoopResult from '../components/CoopResult.vue';
+import CoopHeader from '../components/CoopHeader.vue';
 </script>
 
 <template>
   <ion-page>
-    <CoopMenu title="Charts" />
+    <CoopHeader title="Detail" />
     <ion-content :fullscreen="true">
-      <BarChart />
+      <CoopResult />
     </ion-content>
   </ion-page>
 </template>

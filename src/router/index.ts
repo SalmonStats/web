@@ -13,19 +13,23 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "results",
-        component: () => import("@/views/ResultsView.vue"),
+        component: () => import("../views/ResultsView.vue"),
+      },
+      {
+        path: "results/:salmon_id",
+        component: () => import("../views/ResultView.vue"),
       },
       {
         path: "schedules",
-        component: () => import("@/views/SchedulesView.vue"),
+        component: () => import("../views/SchedulesView.vue"),
       },
       {
         path: "schedules/:schedule_id",
-        component: () => import("@/views/StatsView.vue"),
+        component: () => import("../views/StatsView.vue"),
       },
       {
         path: "users",
-        component: () => import("@/views/UsersView.vue"),
+        component: () => import("../views/UsersView.vue"),
       },
     ],
   },

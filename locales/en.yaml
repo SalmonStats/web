@@ -12,6 +12,13 @@ tabs:
   schedules: Schedules
   results: Results
 event_type:
+  "0": "-"
+  "1": Rush
+  "2": Goldie Seeking
+  "3": Griller
+  "4": The Mothership
+  "5": fog
+  "6": Cohock Charge
   fog: fog
   cohock_charge: Cohock Charge
   goldie_seeking: Goldie Seeking
@@ -39,6 +46,9 @@ app:
   system: System
   accounts: Accounts
 water_level:
+  "0": LT
+  "1": NT
+  "2": HT
   low: LT
   normal: NT
   high: HT
@@ -52,7 +62,7 @@ salmon_id:
   shield: Shield
   goldie: Goldie
   maws: Maws
-  tower: Tower
+  tower: Stinger
   twins: Flyfish
   snake: Steel Eel
   rocket: Drizzler
