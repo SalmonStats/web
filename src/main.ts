@@ -52,7 +52,7 @@ const app = createApp(App)
     animated: !isPlatform("ios"),
     rippleEffect: false,
     mode: "md",
-    swipeBackEnabled: false,
+    // swipeBackEnabled: false,
   })
   .use(router)
   .use(i18n)
