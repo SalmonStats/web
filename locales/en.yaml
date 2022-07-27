@@ -17,9 +17,9 @@ event_type:
   "2": Goldie Seeking
   "3": Griller
   "4": The Mothership
-  "5": fog
+  "5": Fog
   "6": Cohock Charge
-  fog: fog
+  fog: Fog
   cohock_charge: Cohock Charge
   goldie_seeking: Goldie Seeking
   the_mothership: The Mothership

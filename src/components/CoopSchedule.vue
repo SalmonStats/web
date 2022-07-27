@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
-import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol } from '@ionic/vue';
-import { Result } from '@types/result';
-import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
-import { sum } from './math/array'
-import CoopSchedule from './CoopSchedule.vue';
+import { IonItem, IonImg, IonAvatar, IonCol, IonRow, IonGrid } from '@ionic/vue';
+import dayjs from 'dayjs';
+import { useI18n } from 'vue-i18n'
 
-const result: Ref<Result | undefined> = ref<Result>();
-const app = getCurrentInstance()
-const route = useRoute()
-const { t } = useI18n()
+export interface Schedules {
+  limit: number
+  offset: number
+  results: Schedule[]
+}
+
+export interface Schedule {
+  start_time: string
+  stage_id: number
+  end_time: string
+  rare_weapon?: number
+  weapon_list: number[]
+}
 
 const WeaponType: { [name: number]: string } = {
   "-2": "assets/images/weapon/7076c8181ab5c49d2ac91e43a2d945a46a99c17d.png",
@@ -71,71 +76,35 @@ const WeaponType: { [name: number]: string } = {
   "20030": "assets/images/weapon/c2c0653d3246ea6df2b595c68e907f68eda49b08.png"
 }
 
-onMounted(() => {
-  const baseURL = app?.appContext.config.globalProperties.$baseURL
-  const { salmon_id } = route.params
-  if (baseURL === null) {
-    return
-  }
-  const url = `${baseURL}/results/${salmon_id}`
+const { t, availableLocales, locale } = useI18n()
 
-  fetch(url)
-    .then(res => res.json())
-    .then((res: Result) => {
-      result.value = res
-    });
-});
-
+const props = defineProps<{
+  schedule: Schedule
+}>()
 </script>
 
 <template>
-  <ion-content>
-    <ion-list>
-      <CoopSchedule :schedule="result?.schedule" v-if="result !== undefined" />
-      <ion-list-header>
-        <ion-label>
-          <h2>Waves</h2>
-        </ion-label>
-      </ion-list-header>
-      <ion-item-group>
-        <template v-for="wave in result?.waves" :key="wave.id">
-          <ion-item>
-            <ion-grid>
-              <ion-row>
-                <ion-col size="2">{{ t(`water_level.${wave.water_level}`) }}</ion-col>
-                <ion-col>{{ t(`event_type.${wave.event_type}`) }}</ion-col>
-                <ion-col size="auto">{{ wave.golden_ikura_num }}/{{ wave.quota_num }}({{ wave.golden_ikura_pop_num }})
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
+  <ion-item button :router-link="`/schedules/${dayjs(props.schedule.start_time).unix()}`">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          {{ dayjs(props.schedule.start_time).format("MM/DD HH:mm:ss") }} - {{
+              dayjs(props.schedule.end_time).format("MM/DD HH:mm:ss")
+          }}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          {{ t(`stage_name.${props.schedule.stage_id}`) }}
+        </ion-col>
+        <template v-for="weaponId in props.schedule.weapon_list" :key="weaponId">
+          <ion-img class="coop-weapon-list-item" :src="WeaponType[weaponId]"></ion-img>
         </template>
-      </ion-item-group>
-      <ion-list-header>
-        <ion-label>
-          <h2>Players</h2>
-        </ion-label>
-      </ion-list-header>
-      <ion-item-group>
-        <template v-for="player in result?.players" :key="player.nsaid">
-          <ion-item>
-            <ion-grid>
-              <ion-row>
-                <ion-col>{{ player.name }}</ion-col>
-                <ion-col size="auto">
-                  <ion-row class="ion-justify-content-end num golden-ikura">{{ player.golden_ikura_num }}</ion-row>
-                  <ion-row class="ion-justify-content-end num ikura">{{ player.ikura_num }}</ion-row>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </template>
-      </ion-item-group>
-      <ion-list-header>
-        <ion-label>
-          <h2>Boss</h2>
-        </ion-label>
-      </ion-list-header>
-    </ion-list>
-  </ion-content>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 </template>
+
+<style lang="scss" scoped>
+@import "../theme/style.scss";
+</style>

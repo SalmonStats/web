@@ -13,6 +13,18 @@
 
 ion-img {
   &.coop-weapon-list-item {
-    max-width: 45px;
+    max-width: 40px;
+  }
+}
+
+.num {
+  &::before {
+    content: "x" !important;
+  }
+}
+
+.danger-rate {
+  &::after {
+    content: "%" !important;
   }
 }
