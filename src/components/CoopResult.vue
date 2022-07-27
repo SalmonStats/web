@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
-import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonText, IonItemGroup, IonGrid, IonRow, IonCol, IonAvatar } from '@ionic/vue';
+import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import { Result } from '@types/result';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { sum } from './math/array'
+import CoopSchedule from './CoopSchedule.vue';
 
 const result: Ref<Result | undefined> = ref<Result>();
 const app = getCurrentInstance()
@@ -90,20 +91,7 @@ onMounted(() => {
 <template>
   <ion-content>
     <ion-list>
-      <ion-list-header>
-        <ion-label>
-          <h2>Schedule</h2>
-        </ion-label>
-      </ion-list-header>
-      <ion-item-group>
-        <ion-item>
-          <template v-for="weaponId in result?.schedule.weapon_list" :key="weaponId">
-            <ion-avatar>
-              <img :src="WeaponType[weaponId]" />
-            </ion-avatar>
-          </template>
-        </ion-item>
-      </ion-item-group>
+      <CoopSchedule :schedule="result?.schedule" v-if="result !== undefined" />
       <ion-list-header>
         <ion-label>
           <h2>Waves</h2>
@@ -114,9 +102,9 @@ onMounted(() => {
           <ion-item>
             <ion-grid>
               <ion-row>
-                <ion-col size="1">{{ t(`water_level.${wave.water_level}`) }}</ion-col>
+                <ion-col size="2">{{ t(`water_level.${wave.water_level}`) }}</ion-col>
                 <ion-col>{{ t(`event_type.${wave.event_type}`) }}</ion-col>
-                <ion-col size="3">{{ wave.golden_ikura_num }}/{{ wave.quota_num }}({{ wave.golden_ikura_pop_num }})
+                <ion-col size="auto">{{ wave.golden_ikura_num }}/{{ wave.quota_num }}({{ wave.golden_ikura_pop_num }})
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -134,8 +122,10 @@ onMounted(() => {
             <ion-grid>
               <ion-row>
                 <ion-col>{{ player.name }}</ion-col>
-                <ion-col size="1">{{ player.golden_ikura_num }}</ion-col>
-                <ion-col size="1.6">{{ player.ikura_num }}</ion-col>
+                <ion-col size="auto">
+                  <ion-row class="ion-justify-content-end num golden-ikura">{{ player.golden_ikura_num }}</ion-row>
+                  <ion-row class="ion-justify-content-end num ikura">{{ player.ikura_num }}</ion-row>
+                </ion-col>
               </ion-row>
             </ion-grid>
           </ion-item>
