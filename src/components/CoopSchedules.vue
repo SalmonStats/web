@@ -34,7 +34,3 @@ onMounted(() => {
     </ion-list>
   </ion-content>
 </template>
-
-<style lang="scss" scoped>
-@import "../theme/style.scss";
-</style>

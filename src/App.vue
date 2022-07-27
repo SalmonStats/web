@@ -9,3 +9,7 @@ import CoopMenu from './components/CoopMenu.vue';
     <ion-router-outlet id="menuContent" />
   </ion-app>
 </template>
+
+<style lang="scss" scoped>
+@import "theme/style.scss";
+</style>
