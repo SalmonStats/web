@@ -104,7 +104,3 @@ const props = defineProps<{
     </ion-grid>
   </ion-item>
 </template>
-
-<style lang="scss" scoped>
-@import "../theme/style.scss";
-</style>
