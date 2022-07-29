@@ -15,6 +15,24 @@ ion-img {
   &.coop-weapon-list-item {
     max-width: 40px;
   }
+
+  &.supplied-weapon-list-item {
+    height: 28px;
+    width: 28px;
+    // background: var(--ion-border-color);
+    border-radius: 14px;
+  }
+
+  &.supplied-special-item {
+    height: 28px;
+    width: 28px;
+    // background: var(--ion-border-color);
+    border-radius: 14px;
+  }
+
+  &:not(:last-child) {
+    margin-right: 2px;
+  }
 }
 
 .num {

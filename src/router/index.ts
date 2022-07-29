@@ -28,9 +28,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/StatsView.vue"),
       },
       {
-        path: "users",
-        component: () => import("../views/UsersView.vue"),
+        path: "users/:player_id",
+        component: () => import("../views/PlayersView.vue"),
       },
+      {
+        path: "users",
+        component: () => import("../views/PlayersView.vue"),
+      },
+      // {
+      //   path: "charts",
+      //   component: () => import("../views/PlayersView.vue"),
+      // },
     ],
   },
 ];

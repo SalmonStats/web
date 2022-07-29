@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { earthOutline, pieChartOutline, trailSignOutline } from 'ionicons/icons';
+import { earthOutline, pieChartOutline, trailSignOutline, personOutline } from 'ionicons/icons';
 </script>
 
 <template>
@@ -18,9 +18,14 @@ import { earthOutline, pieChartOutline, trailSignOutline } from 'ionicons/icons'
           <ion-label>Schedules</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="users" href="/users">
+        <ion-tab-button tab="charts" href="/charts">
           <ion-icon :icon="pieChartOutline" />
           <ion-label>Charts</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="users" href="/users">
+          <ion-icon :icon="personOutline" />
+          <ion-label>User</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
