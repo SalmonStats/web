@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
 import CoopHeader from '@/components/CoopHeader.vue';
-import PlayerView from '@/components/PlayerView.vue';
+import PlayerView from '@/components/Player/PlayerView.vue';
 </script>
 
 <template>

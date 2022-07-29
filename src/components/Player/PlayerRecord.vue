@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonListHeader, IonContent, IonLabel, IonList, IonItem, IonAvatar, IonImg, IonRow, IonCol } from '@ionic/vue';
-import { StageResult } from './@types/player'
+import { IonIcon, IonItem, IonRow, IonCol } from '@ionic/vue';
+import { StageResult } from '../@types/player'
 import { useI18n } from 'vue-i18n';
 import { sunnyOutline, moonOutline } from 'ionicons/icons';
 
@@ -23,13 +23,13 @@ const props = defineProps<{
             <ion-icon size="small" :icon="sunnyOutline" class="night-icon"></ion-icon>
           </ion-row>
         </ion-col>
-        <ion-col size="2" style="max-width: 50px !important;">
+        <ion-col size="auto" style="min-width: 50px !important;">
           <ion-row class="ion-justify-content-end num golden-ikura">{{ record.night.team_results.golden_ikura_num }}
           </ion-row>
           <ion-row class="ion-justify-content-end num ikura">{{ record.nightless.team_results.golden_ikura_num }}
           </ion-row>
         </ion-col>
-        <ion-col size="2" style="max-width: 50px !important;">
+        <ion-col size="auto" style="min-width: 50px !important;">
           <ion-row class="ion-justify-content-end num golden-ikura">{{ record.night.player_results.golden_ikura_num }}
           </ion-row>
           <ion-row class="ion-justify-content-end num ikura">{{ record.nightless.player_results.golden_ikura_num }}
