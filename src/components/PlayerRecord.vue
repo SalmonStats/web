@@ -23,13 +23,13 @@ const props = defineProps<{
             <ion-icon size="small" :icon="sunnyOutline" class="night-icon"></ion-icon>
           </ion-row>
         </ion-col>
-        <ion-col size="1.5">
+        <ion-col size="2" style="max-width: 50px !important;">
           <ion-row class="ion-justify-content-end num golden-ikura">{{ record.night.team_results.golden_ikura_num }}
           </ion-row>
           <ion-row class="ion-justify-content-end num ikura">{{ record.nightless.team_results.golden_ikura_num }}
           </ion-row>
         </ion-col>
-        <ion-col size="1.5">
+        <ion-col size="2" style="max-width: 50px !important;">
           <ion-row class="ion-justify-content-end num golden-ikura">{{ record.night.player_results.golden_ikura_num }}
           </ion-row>
           <ion-row class="ion-justify-content-end num ikura">{{ record.nightless.player_results.golden_ikura_num }}
