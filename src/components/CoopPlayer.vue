@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
-import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol, IonImg } from '@ionic/vue';
+import { IonItem, IonGrid, IonRow, IonCol, IonImg } from '@ionic/vue';
 import { Player } from '@types/result';
+import { sum } from './math/array'
 
 const SpecialType: { [name: number]: string } = {
   "2": "assets/images/special/18990f646c551ee77c5b283ec814e371f692a553.png",
@@ -75,7 +75,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <ion-item button :router-link="`/users/${player.nsaid}`">
+  <ion-item button :router-link="`/users/${props.player.nsaid}`">
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -83,15 +83,19 @@ const props = defineProps<{
             {{ player.name }}
           </ion-row>
           <ion-row>
-            <template v-for="weaponId in player.weapon_list" :key="weaponId">
+            <template v-for="weaponId in props.player.weapon_list" :key="weaponId">
               <ion-img :src="WeaponType[weaponId]" class="supplied-weapon-list-item" />
             </template>
             <ion-img :src="SpecialType[player.special_id]" class="supplied-special-item" />
           </ion-row>
         </ion-col>
         <ion-col size="auto">
-          <ion-row class="ion-justify-content-end num golden-ikura">{{ player.golden_ikura_num }}</ion-row>
-          <ion-row class="ion-justify-content-end num ikura">{{ player.ikura_num }}</ion-row>
+          <ion-row class="ion-justify-content-end num golden-ikura">{{ props.player.golden_ikura_num }}</ion-row>
+          <ion-row class="ion-justify-content-end num ikura">{{ props.player.ikura_num }}</ion-row>
+        </ion-col>
+        <ion-col size="auto" style="min-width:40px;">
+          <ion-row class="ion-justify-content-end">{{ player.grade_point ?? "-" }}</ion-row>
+          <ion-row class="ion-justify-content-end num ikura">{{ player.boss_kill_counts.sum() }}</ion-row>
         </ion-col>
       </ion-row>
     </ion-grid>

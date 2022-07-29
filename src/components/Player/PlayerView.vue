@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonListHeader, IonContent, IonLabel, IonList, IonItem, IonAvatar, IonImg, IonRow, IonCol } from '@ionic/vue';
+import { IonContent, IonList } from '@ionic/vue';
 import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
-import { Player } from './@types/player'
+import { Player } from '../@types/player'
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { sunnyOutline, moonOutline } from 'ionicons/icons';
 import PlayerRecord from './PlayerRecord.vue';
+import PlayerResult from './PlayerResult.vue';
 
 const app = getCurrentInstance()
 const player: Ref<Player | undefined> = ref<Player>()
@@ -31,16 +31,8 @@ onMounted(() => {
 
 <template>
   <ion-content>
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-          <ion-img :src="player?.thumbnail_url"></ion-img>
-        </ion-avatar>
-        <ion-label slot="end">{{ player?.nickname }}</ion-label>
-      </ion-item>
-      <ion-list-header>
-        <ion-label>Stage Records</ion-label>
-      </ion-list-header>
+    <ion-list v-if="player !== undefined">
+      <PlayerResult :player="player" />
       <template v-for="record in player?.stage_results" :key="record.stage_id">
         <PlayerRecord :record="record" />
       </template>
