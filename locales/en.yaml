@@ -118,3 +118,6 @@ tab_type:
   overview: Overview
   results: Results
   shifts: Shifts
+total:
+  night: Night
+  nightless: NightLess
