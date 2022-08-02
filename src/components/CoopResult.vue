@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
-import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol, IonImg } from '@ionic/vue';
+import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import { Result } from '@types/result';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';

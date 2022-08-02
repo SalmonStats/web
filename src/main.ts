@@ -49,7 +49,7 @@ const i18n = createI18n({
 
 const app = createApp(App)
   .use(IonicVue, {
-    animated: !isPlatform("ios"),
+    animated: true,
     rippleEffect: false,
     mode: "md",
     // swipeBackEnabled: false,
