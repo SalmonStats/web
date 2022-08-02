@@ -12,6 +12,10 @@ const routes: Array<RouteRecordRaw> = [
     component: NavigationView,
     children: [
       {
+        path: "login",
+        component: () => import("../views/SignInView.vue"),
+      },
+      {
         path: "results",
         component: () => import("../views/ResultsView.vue"),
       },
@@ -33,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "users",
-        component: () => import("../views/PlayersView.vue"),
+        component: () => import("../views/UserView.vue"),
       },
       // {
       //   path: "charts",

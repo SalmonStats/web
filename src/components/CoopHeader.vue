@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { IonHeader, IonToolbar, IonButton, IonMenuButton, IonButtons, IonTitle, IonIcon, IonChan } from '@ionic/vue';
-import { contrastOutline, languageOutline } from 'ionicons/icons';
+import { IonHeader, IonToolbar, IonButton, IonMenuButton, IonButtons, IonTitle, IonIcon } from '@ionic/vue';
+import { contrastOutline, languageOutline, logoTwitter, snowOutline } from 'ionicons/icons';
 import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n'
 
@@ -31,8 +31,8 @@ function changeTheme() {
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button :auto-hide="false"></ion-menu-button>
+      <ion-buttons slot="start" router-link="/users">
+        <ion-icon :icon="snowOutline" slot="icon-only"></ion-icon>
       </ion-buttons>
       <ion-buttons slot="primary">
         <ion-button @click="changeLanguages">
@@ -40,6 +40,9 @@ function changeTheme() {
         </ion-button>
         <ion-button @click="changeTheme()">
           <ion-icon slot="icon-only" :icon="contrastOutline"></ion-icon>
+        </ion-button>
+        <ion-button router-link="/login">
+          <ion-icon slot="icon-only" :icon="logoTwitter"></ion-icon>
         </ion-button>
       </ion-buttons>
       <ion-title>{{ props.title }}</ion-title>

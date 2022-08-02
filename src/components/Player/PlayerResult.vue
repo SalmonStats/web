@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IonItem, IonAvatar, IonImg, IonLabel, IonRow, IonCol, IonIcon, IonItemGroup } from '@ionic/vue';
+import { IonItem, IonAvatar, IonImg, IonLabel, IonRow, IonCol, IonIcon, IonItemGroup, IonGrid } from '@ionic/vue';
 import { useI18n } from 'vue-i18n';
 import { Player } from '../@types/player'
 import { sparklesOutline } from 'ionicons/icons';
@@ -16,7 +16,8 @@ const props = defineProps<{
       <ion-avatar slot="start">
         <ion-img :src="props.player.thumbnail_url"></ion-img>
       </ion-avatar>
-      <ion-icon :icon="sparklesOutline" class="is-imperial-scholars" v-show="player.is_imperial_scholars"></ion-icon>
+      <ion-icon slot="start" :icon="sparklesOutline" class="is-imperial-scholars" v-show="player.is_imperial_scholars">
+      </ion-icon>
       <ion-label slot="end">{{ props.player.nickname }}</ion-label>
     </ion-item>
   </ion-item-group>
