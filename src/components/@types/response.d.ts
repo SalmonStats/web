@@ -71,6 +71,10 @@ interface Wave {
   quota_num: number;
 }
 
+export interface Results {
+  results: Result[];
+}
+
 interface Result {
   salmon_id: number;
   job_result: JobResult;
