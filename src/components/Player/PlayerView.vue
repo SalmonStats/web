@@ -6,7 +6,6 @@ import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import PlayerRecord from './PlayerRecord.vue';
 import PlayerResult from './PlayerResult.vue';
-import SplatNet2 from "../../views/SignInView.vue"
 
 const player: Ref<Player | undefined> = ref<Player>()
 const { t } = useI18n()
@@ -14,17 +13,15 @@ const { t } = useI18n()
 onMounted(() => {
   const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
   const { player_id } = useRoute().params
-  const local = localStorage.getItem('account')
-  if (local !== null) {
-    const { nsaid } = JSON.parse(local) as SplatNet2
-    const url = `${baseURL}/players/${player_id ?? nsaid}`
+  const { nsaid } = JSON.parse(localStorage.getItem('account') ?? "{}")
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((res: Player) => {
-        player.value = res
-      })
-  }
+  const url = `${baseURL}/players/${player_id ?? nsaid}`
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((res: Player) => {
+      player.value = res
+    })
 })
 </script>
 

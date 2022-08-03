@@ -69,6 +69,8 @@ salmon_id:
   bomber: バクダン
   dozer: グリル
 messages:
+  link: 連携する
+  paste_oauth_url: URLをペーストしてください
   cancel: キャンセル
   submit: 送信
 stats:
@@ -98,6 +100,7 @@ result:
     wipe_out: ゼンメツ!
   is_clear: Clear!
 authentication:
+  splatnet2: イカリング2
   sign_in: ログイン
   sign_out: ログアウト
   github: GitHub

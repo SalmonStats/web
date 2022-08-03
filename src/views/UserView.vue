@@ -62,14 +62,12 @@ async function getResults() {
 
     const url = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}/authorize/results`;
     const parameters = {
-      'result_id': account.value.summary.job_num,
-    }
-    const headers = {
-      "iksm_session": account.value.iksm_session
+      "iksm_session": account.value.iksm_session,
+      'result_id': account.value.summary.job_num - 50,
     }
 
     // リザルト取得とアップロードを完了
-    const response = await axios.get(url, { headers: headers, params: parameters })
+    const response = await axios.post(url, parameters)
 
     if (response.status === 204) {
       toast.message = "新しいリザルトはありませんでした"
@@ -77,14 +75,13 @@ async function getResults() {
 
     if (response.status === 200) {
       const results = response.data as Results
-      toast.message = `${results.results.length}件のリザルトを取得しました`
+      toast.message = "リザルトを取得しました"
     }
 
     if (account.value !== null) {
       account.value.expires_in = dayjs().unix() + 86400
-      account.value.summary.job_num += (response.status === 204 ? 0 : (response.data as Results).results.length)
+      // account.value.summary.job_num 
       localStorage.setItem('account', JSON.stringify(account.value))
-      console.log(account.value)
     }
   } catch (error) {
     const { error_description, errorMessage } = (error as AxiosError).response?.data as APIError

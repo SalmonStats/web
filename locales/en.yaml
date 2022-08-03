@@ -69,6 +69,8 @@ salmon_id:
   bomber: Steelhead
   dozer: Griller
 messages:
+  link: Link
+  paste_oauth_url: Paste the URL
   cancel: Cancel
   submit: Submit
 stats:
@@ -98,6 +100,7 @@ result:
     wipe_out: DEFEAT!
   is_clear: Clear
 authentication:
+  splatnet2: SplatNet2
   sign_in: Sign in
   sign_out: Sign out
   github: GitHub

@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
+import { onMounted, Ref, ref } from 'vue';
 import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import { Result } from '@types/result';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { sum } from './math/array'
 import CoopSchedule from './CoopSchedule.vue';
 import CoopPlayer from './CoopPlayer.vue';
 
 const result: Ref<Result | undefined> = ref<Result>();
-const app = getCurrentInstance()
 const route = useRoute()
 const { t } = useI18n()
 
 onMounted(() => {
-  const baseURL = app?.appContext.config.globalProperties.$baseURL
+  const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
   const { salmon_id } = route.params
-  if (baseURL === null) {
-    return
-  }
   const url = `${baseURL}/results/${salmon_id}`
 
   fetch(url)
@@ -27,7 +22,6 @@ onMounted(() => {
       result.value = res
     });
 });
-
 </script>
 
 <template>

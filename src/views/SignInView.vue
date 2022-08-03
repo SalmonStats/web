@@ -133,18 +133,18 @@ onIonViewDidEnter(() => {
       <ion-list>
         <ion-item>
           <ion-label slot="start">Twitter</ion-label>
-          <ion-button slot="end">連携する</ion-button>
+          <ion-button slot="end">{{ t("messages.link") }}</ion-button>
         </ion-item>
         <ion-item-group v-if="account === null">
           <ion-item>
-            <ion-label slot="start">イカリング2</ion-label>
-            <ion-button slot="end" @click="getOAuthURL">認証する</ion-button>
+            <ion-label slot="start">{{ t("authentication.splatnet2") }}</ion-label>
+            <ion-button slot="end" @click="getOAuthURL">{{ t("messages.link") }}</ion-button>
           </ion-item>
           <ion-item>
-            <ion-input :clear-input="true" :clear-on-edit="true" pattern="password" placeholder="URLをペーストしてください"
-              v-model="session_token_code">
+            <ion-input :clear-input="true" :clear-on-edit="true" pattern="password"
+              :placeholder="t('messages.paste_oauth_url')" v-model="session_token_code">
             </ion-input>
-            <ion-button @click="getCookie" :disabled="inProgress">連携</ion-button>
+            <ion-button @click="getCookie" :disabled="inProgress">{{ t("messages.link") }}</ion-button>
           </ion-item>
         </ion-item-group>
         <ion-item-group v-if="account !== null">
@@ -158,7 +158,7 @@ onIonViewDidEnter(() => {
           </ion-item> -->
           <ion-item>
             <ion-label slot="start">{{ account.nickname }}</ion-label>
-            <ion-button slot="end" @click="signOut">ログアウト</ion-button>
+            <ion-button slot="end" @click="signOut">{{ t("authentication.sign_out") }}</ion-button>
           </ion-item>
         </ion-item-group>
       </ion-list>

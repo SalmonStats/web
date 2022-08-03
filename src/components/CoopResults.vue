@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import { getCurrentInstance, onMounted, Ref, ref } from 'vue';
+import { onMounted, Ref, ref } from 'vue';
 import { IonList, IonContent, IonItemGroup } from '@ionic/vue';
 import { useI18n } from 'vue-i18n'
 import { Result } from './@types/response';
-import dayjs from 'dayjs';
 import CoopOverview from './CoopOverview.vue';
 
 const results: Ref<Result[]> = ref([]);
-const app = getCurrentInstance()
 const { t } = useI18n()
 
 onMounted(() => {
-  const baseURL = app?.appContext.config.globalProperties.$baseURL
-  if (baseURL === null) {
-    return
-  }
+  const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
 
   const url = `${baseURL}/results`
   fetch(url)
