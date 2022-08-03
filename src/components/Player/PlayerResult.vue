@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { IonItem, IonAvatar, IonImg, IonLabel, IonRow, IonCol, IonIcon, IonItemGroup, IonGrid } from '@ionic/vue';
+import {
+  IonItem, IonAvatar, IonImg, IonLabel, IonIcon, IonItemGroup
+} from '@ionic/vue';
 import { useI18n } from 'vue-i18n';
 import { Player } from '../@types/player'
-import { sparklesOutline } from 'ionicons/icons';
+import { sparklesOutline, informationCircle } from 'ionicons/icons';
 
 const { t } = useI18n()
 const props = defineProps<{
@@ -21,35 +23,18 @@ const props = defineProps<{
       <ion-label slot="end">{{ props.player.nickname }}</ion-label>
     </ion-item>
   </ion-item-group>
-  <ion-item>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-row>
-            {{ t("rank_type.ikura_num") }}
-          </ion-row>
-          <ion-row>
-            {{ t("rank_type.job_num") }}
-          </ion-row>
-        </ion-col>
-        <ion-col size="auto" style="min-width: 50px !important;">
-          <ion-row class="ion-justify-content-end num ikura">
-            {{ player.ikura_num }}
-          </ion-row>
-          <ion-row class="ion-justify-content-end num golden-ikura">
-            {{ player.is_clear }}
-          </ion-row>
-        </ion-col>
-        <ion-col size="auto" style="min-width: 50px !important;">
-          <ion-row class="ion-justify-content-end num">
-            {{ player.golden_ikura_num }}
-          </ion-row>
-          <ion-row class="ion-justify-content-end num">
-            {{ player.is_failure }}
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <ion-item :router-link="`/users/${player.nsaid}/results`">
+    <ion-label>
+      {{ t("results.list") }}
+    </ion-label>
+    <ion-label slot="end">
+      {{ t("results.latest", {
+          win: player.is_clear, lose: player.is_failure
+        })
+      }}
+    </ion-label>
+    <ion-icon :icon="informationCircle" slot="end">
+    </ion-icon>
   </ion-item>
 </template>
 

@@ -126,3 +126,6 @@ tab_type:
 total:
   night: 夜
   nightless: 昼
+results:
+  list: リザルト一覧
+  latest: "%{win}勝 %{lose}敗"
