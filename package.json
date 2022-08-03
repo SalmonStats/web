@@ -4,15 +4,15 @@
   "private": true,
   "description": "An Ionic project",
   "scripts": {
-    "dev": "yarn vite",
-    "serve:dev": "vue-cli-service serve --mode development",
-    "serve:prod": "vue-cli-service serve --mode production",
     "build": "vue-cli-service build",
-    "build:vite": "vue-tsc --noEmit && vite build",
-    "deploy": "vue-cli-service build && firebase deploy",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "vue-cli-service build && firebase deploy",
+    "build:vite": "vue-tsc --noEmit && vite build",
+    "dev": "yarn vite",
+    "serve:dev": "vue-cli-service serve --mode development",
+    "serve:prod": "vue-cli-service serve --mode production"
   },
   "dependencies": {
     "@capacitor/app": "1.1.1",

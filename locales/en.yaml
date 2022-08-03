@@ -69,6 +69,8 @@ salmon_id:
   bomber: Steelhead
   dozer: Griller
 messages:
+  downloading_results: Downloading results...
+  downloaded_results: Done.
   link: Link
   paste_oauth_url: Paste the URL
   cancel: Cancel

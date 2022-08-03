@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { IonItem, IonGrid, IonRow, IonCol, IonImg } from '@ionic/vue';
 import { Player } from '@types/result';
-import { sum } from './math/array'
 
 const SpecialType: { [name: number]: string } = {
   "2": "assets/images/special/18990f646c551ee77c5b283ec814e371f692a553.png",

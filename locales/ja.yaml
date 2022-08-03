@@ -69,6 +69,8 @@ salmon_id:
   bomber: バクダン
   dozer: グリル
 messages:
+  downloading_results: リザルト取得中です
+  downloaded_results: 完了!
   link: 連携する
   paste_oauth_url: URLをペーストしてください
   cancel: キャンセル
