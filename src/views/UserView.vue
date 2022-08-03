@@ -6,7 +6,8 @@ import PlayerView from '@/components/Player/PlayerView.vue';
 import { APIError, SplatNet2 } from './SignInView.vue';
 import axios, { AxiosError } from 'axios';
 import dayjs from 'dayjs';
-import { onMounted, Ref, ref } from 'vue';
+import { Ref, ref } from 'vue';
+import { useI18n } from 'vue-i18n'
 
 enum Status {
   Updated = "updated",
@@ -22,6 +23,8 @@ interface Results {
   results: Result[]
 }
 
+const { t, availableLocales, locale } = useI18n()
+const inProgress: Ref<boolean> = ref<boolean>(false)
 const account: Ref<SplatNet2 | null> = ref<SplatNet2>((() => {
   const account = localStorage.getItem('account')
   if (account) {
@@ -37,19 +40,18 @@ async function authorize(session_token: string): Promise<string> {
   }
 
   const { iksm_session } = (await axios.post(url, parameters)).data as SplatNet2
-  console.log(iksm_session)
   return iksm_session
 }
 
 async function getResults() {
   const toast = await toastController.create({
-    message: "リザルト取得中です",
-    duration: 5000,
+    message: t("messages.downloading_results"),
     animated: true
   })
   toast.present()
 
   try {
+    inProgress.value = true
     // アカウント情報がなければ何もしない
     if (account.value === null) {
       return
@@ -73,9 +75,11 @@ async function getResults() {
       toast.message = "新しいリザルトはありませんでした"
     }
 
-    if (response.status === 200) {
-      const results = response.data as Results
-      toast.message = "リザルトを取得しました"
+    if (response.status === 201) {
+      // const results = response.data as Results
+      toast.message = t("messages.downloaded_results")
+      await new Promise(f => setTimeout(f, 2000));
+      toast.dismiss()
     }
 
     if (account.value !== null) {
@@ -86,7 +90,10 @@ async function getResults() {
   } catch (error) {
     const { error_description, errorMessage } = (error as AxiosError).response?.data as APIError
     toast.message = error_description ?? errorMessage
+    await new Promise(f => setTimeout(f, 3000));
+    toast.dismiss()
   }
+  inProgress.value = false
 }
 
 onIonViewDidEnter(() => {
@@ -106,7 +113,7 @@ onIonViewDidEnter(() => {
     <ion-content :fullscreen="true">
       <PlayerView />
       <ion-fab vertical="bottom" horizontal="end" slot="fixed" v-if="account !== null">
-        <ion-fab-button @click="getResults">
+        <ion-fab-button @click="getResults" :disabled="inProgress">
           <ion-icon :icon="syncOutline" />
         </ion-fab-button>
       </ion-fab>
