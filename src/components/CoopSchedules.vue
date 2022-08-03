@@ -7,10 +7,7 @@ const app = getCurrentInstance()
 const schedules: Ref<Schedule[]> = ref<Schedule[]>([])
 
 onMounted(() => {
-  const baseURL = app?.appContext.config.globalProperties.$baseURL
-  if (baseURL === null) {
-    return
-  }
+  const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
 
   const url = `${baseURL}/schedules`
   fetch(url)

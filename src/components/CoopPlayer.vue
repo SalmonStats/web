@@ -95,7 +95,7 @@ const props = defineProps<{
         </ion-col>
         <ion-col size="auto" style="min-width:40px;">
           <ion-row class="ion-justify-content-end">{{ player.grade_point ?? "-" }}</ion-row>
-          <ion-row class="ion-justify-content-end num ikura">{{ player.boss_kill_counts.sum() }}</ion-row>
+          <!-- <ion-row class="ion-justify-content-end num ikura">{{ player.boss_kill_counts.sum() }}</ion-row> -->
         </ion-col>
       </ion-row>
     </ion-grid>

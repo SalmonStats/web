@@ -36,7 +36,7 @@ import { createI18n } from "vue-i18n";
 
 const i18n = createI18n({
   legacy: false,
-  locale: "ja",
+  locale: "en",
   allowComposition: true,
   messages: {
     ja: require("/locales/ja.yaml"),
@@ -50,15 +50,13 @@ const i18n = createI18n({
 const app = createApp(App)
   .use(IonicVue, {
     animated: true,
-    rippleEffect: false,
+    rippleEffect: true,
     mode: "md",
-    // swipeBackEnabled: false,
+    swipeBackEnabled: false,
   })
   .use(router)
   .use(i18n)
   .use(VueGtag, { property: { id: "", router } });
-
-app.config.globalProperties.$baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
 
 router.isReady().then(() => {
   app.mount("#app");
