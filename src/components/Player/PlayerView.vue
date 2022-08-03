@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { IonContent, IonList } from '@ionic/vue';
+import { IonContent, IonList, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
 import { onMounted, Ref, ref } from 'vue';
 import { Player } from '../@types/player'
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import PlayerRecord from './PlayerRecord.vue';
 import PlayerResult from './PlayerResult.vue';
+import PlayerOverview from './PlayerOverview.vue';
+import CoopResult from '../CoopResult.vue';
+import CoopResults from '../CoopResults.vue';
+
+enum ViewType {
+  Overview = "overview",
+  Results = "results"
+}
 
 const player: Ref<Player | undefined> = ref<Player>()
+const viewType: Ref<ViewType> = ref<ViewType>(ViewType.Overview)
 const { t } = useI18n()
 
 onMounted(() => {
@@ -23,15 +31,18 @@ onMounted(() => {
       player.value = res
     })
 })
+
+function segmentChanged(event: CustomEvent) {
+  const index = Object.values(ViewType).indexOf(event.detail.value)
+  viewType.value = index === 0 ? ViewType.Overview : ViewType.Results
+}
 </script>
 
 <template>
-  <ion-content>
-    <ion-list v-if="player !== undefined">
+  <ion-content v-if="player !== undefined">
+    <ion-list>
       <PlayerResult :player="player" />
-      <template v-for="record in player?.stage_results" :key="record.stage_id">
-        <PlayerRecord :record="record" />
-      </template>
+      <PlayerOverview :player=player />
     </ion-list>
   </ion-content>
 </template>

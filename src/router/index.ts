@@ -16,6 +16,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../views/SignInView.vue"),
       },
       {
+        path: "users/:player_id/results",
+        component: () => import("../views/ResultsView.vue"),
+      },
+      {
         path: "results",
         component: () => import("../views/ResultsView.vue"),
       },

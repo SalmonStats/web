@@ -126,3 +126,6 @@ tab_type:
 total:
   night: Night
   nightless: NightLess
+results:
+  list: Results
+  latest: "Win %{win} Lose %{lose}"
