@@ -129,3 +129,6 @@ total:
 results:
   list: リザルト一覧
   latest: "%{win}勝 %{lose}敗"
+job_result:
+  true: Clear!
+  false: Defeat!

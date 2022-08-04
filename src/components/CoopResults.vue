@@ -14,7 +14,7 @@ const url = (() => {
   const { player_id } = route.params
   console.log(player_id)
   if (player_id === undefined) {
-    return `${baseURL}/results?limit=10`
+    return `${baseURL}/results?limit=15`
   }
   return `${baseURL}/results?limit=10&nsaid=${player_id}`
 })()
@@ -66,11 +66,9 @@ function getResults(event: InfiniteScrollCustomEvent) {
       <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <ion-list>
-      <ion-item-group>
-        <template v-for="result in results" :key="result.salmon_id">
-          <CoopOverview :result="result" />
-        </template>
-      </ion-item-group>
+      <template v-for="result in results" :key="result.salmon_id">
+        <CoopOverview :result="result" />
+      </template>
     </ion-list>
     <ion-infinite-scroll @ion-infinite="getResults($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
