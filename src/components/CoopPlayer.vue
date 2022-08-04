@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IonItem, IonGrid, IonRow, IonCol, IonImg } from '@ionic/vue';
-import { Player } from '@types/result';
+import { PlayerResult } from '@types/result';
+// import { sum } from './math/array'
 
 const SpecialType: { [name: number]: string } = {
   "2": "assets/images/special/18990f646c551ee77c5b283ec814e371f692a553.png",
@@ -69,7 +70,7 @@ const WeaponType: { [name: number]: string } = {
 }
 
 const props = defineProps<{
-  player: Player
+  player: PlayerResult
 }>()
 </script>
 
@@ -94,7 +95,7 @@ const props = defineProps<{
         </ion-col>
         <ion-col size="auto" style="min-width:40px;">
           <ion-row class="ion-justify-content-end">{{ player.grade_point ?? "-" }}</ion-row>
-          <!-- <ion-row class="ion-justify-content-end num ikura">{{ player.boss_kill_counts.sum() }}</ion-row> -->
+          <ion-row class="ion-justify-content-end num ikura">{{ player.boss_kill_counts.sum() }}</ion-row>
         </ion-col>
       </ion-row>
     </ion-grid>

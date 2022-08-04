@@ -69,6 +69,8 @@ salmon_id:
   bomber: Steelhead
   dozer: Griller
 messages:
+  input_username: Input username
+  search: Find
   downloading_results: Downloading results...
   downloaded_results: Done.
   link: Link

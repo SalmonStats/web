@@ -16,7 +16,7 @@ interface Result {
   waves: WaveResult[];
 }
 
-interface PlayerResult {
+export interface PlayerResult {
   boss_kill_counts: number[];
   dead_count: number;
   golden_ikura_num: number;
