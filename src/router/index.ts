@@ -12,6 +12,10 @@ const routes: Array<RouteRecordRaw> = [
     component: NavigationView,
     children: [
       {
+        path: "search",
+        component: () => import("../views/SearchView.vue"),
+      },
+      {
         path: "login",
         component: () => import("../views/SignInView.vue"),
       },
