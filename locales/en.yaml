@@ -129,3 +129,6 @@ total:
 results:
   list: Results
   latest: "Win %{win} Lose %{lose}"
+job_result:
+  true: Clear
+  false: Failure

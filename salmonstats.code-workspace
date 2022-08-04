@@ -5,7 +5,7 @@
     }
   ],
   "settings": {
-    "i18n-ally.sourceLanguage": "ja",
+    "i18n-ally.sourceLanguage": "en",
     "extensions.ignoreRecommendations": false,
     "i18n-ally.keystyle": "nested",
     "i18n-ally.localesPaths": ["locales"]

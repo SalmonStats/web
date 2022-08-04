@@ -83,6 +83,7 @@ interface Result {
   no_night_waves: boolean;
   danger_rate: number;
   play_time: string;
+  schedule: Schedule;
   waves: Wave[];
 }
 
