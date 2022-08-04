@@ -42,20 +42,6 @@ interface FailureWave {
   wipe_out: number;
 }
 
-export interface Schedule {
-  start_time: string;
-  stage_id: number;
-  end_time: string;
-  rare_weapon?: number;
-  weapon_list: number[];
-}
-
-interface JobResult {
-  is_clear: number;
-  is_failure: number;
-  failure_waves: FailureWave[];
-}
-
 interface Player {
   nsaid: string;
   name: string;
