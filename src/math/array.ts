@@ -1,6 +1,24 @@
 export {};
 
 declare global {
+  interface Array<T> {
+    /**
+     * [拡張メソッド]
+     * 配列の最初のデータを取得します。
+     * @description C# LINQのFirstメソッドと同様の動作をします。
+     * @return 配列の最初のデータ
+     */
+    first(): T | null;
+
+    /**
+     * [拡張メソッド]
+     * 配列の最後のデータを取得します。
+     * @description C# LINQのLastメソッドと同様の動作をします。
+     * @return 配列の最後のデータ
+     */
+    last(): T | null;
+  }
+
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   interface Array<T = number> {
     /**
@@ -56,4 +74,16 @@ Array.prototype.min = function () {
   const items = this as number[];
   if (!Array.isArray(items) || items.length === 0) return 0;
   return items.reduce((min, num) => (min < num ? min : num));
+};
+
+Array.prototype.first = function <T>() {
+  const items = this as T[];
+  if (!Array.isArray(items) || items.length === 0) return null;
+  return items[0];
+};
+
+Array.prototype.last = function <T>() {
+  const items = this as T[];
+  if (!Array.isArray(items) || items.length === 0) return null;
+  return items[items.length - 1];
 };

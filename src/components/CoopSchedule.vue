@@ -2,13 +2,14 @@
 import { IonItem, IonImg, IonCol, IonRow, IonGrid } from '@ionic/vue';
 import dayjs from 'dayjs';
 import { useI18n } from 'vue-i18n'
-import { CoopResult } from './@types/result';
-import { weaponURL } from './@types/function';
+import { CoopResult } from '@/types/coop';
+import { weaponURL } from "@/functions"
 
+type Schedule = CoopResult.Schedule
 const { t, availableLocales, locale } = useI18n()
 
 const props = defineProps<{
-  schedule: CoopResult.Schedule
+  schedule: Schedule
 }>()
 </script>
 

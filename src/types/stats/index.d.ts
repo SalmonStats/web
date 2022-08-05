@@ -1,4 +1,4 @@
-import { PlayerRank } from "./common";
+import { PlayerRank } from "../common";
 
 export namespace SalmonStats {
   /**
