@@ -70,7 +70,7 @@ salmon_id:
   dozer: Griller
 messages:
   input_username: Input username
-  search: Find
+  search: Search
   downloading_results: Downloading results...
   downloaded_results: Done.
   link: Link

@@ -12,16 +12,14 @@ const props = defineProps<{
 </script>
 
 <template>
-  <ion-content>
-    <ion-list>
-      <template v-for="player in props.players" :key="player.nsaid">
-        <ion-item button :router-link="`/users/${player.nsaid}`">
-          <ion-avatar slot="start">
-            <ion-img :src="player.thumbnail_url"></ion-img>
-          </ion-avatar>
-          <ion-label slot="end">{{ player.nickname }}</ion-label>
-        </ion-item>
-      </template>
-    </ion-list>
-  </ion-content>
+  <ion-list>
+    <template v-for="player in props.players" :key="player.nsaid">
+      <ion-item button :router-link="`/users/${player.nsaid}`">
+        <ion-avatar slot="start">
+          <ion-img :src="player.thumbnail_url"></ion-img>
+        </ion-avatar>
+        <ion-label slot="end">{{ player.nickname }}</ion-label>
+      </ion-item>
+    </template>
+  </ion-list>
 </template>

@@ -2,13 +2,14 @@
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonButton, IonInput, toastController, IonItemGroup, onIonViewDidEnter } from '@ionic/vue';
 import { useI18n } from 'vue-i18n'
 import CoopHeader from '@/components/CoopHeader.vue';
-import { onMounted, ref, Ref } from 'vue';
+import { ref, Ref } from 'vue';
 import axios, { AxiosError } from "axios";
 import { OAuth } from '@/components/@types/oauth';
 
+type SplatNet2 = OAuth.SplatNet2
 
 const { t, availableLocales, locale } = useI18n()
-const account: Ref<OAuth.SplatNet2 | null> = ref<OAuth.SplatNet2>((() => {
+const account: Ref<SplatNet2 | null> = ref<SplatNet2>((() => {
   const account = localStorage.getItem('account')
   if (account) {
     return JSON.parse(account)
@@ -29,36 +30,9 @@ async function getOAuthURL() {
   window.open(oauthURL, '_blank');
 }
 
-async function openToast() {
-  const toast = await toastController
-    .create({
-      message: "ログインしました",
-      duration: 2000
-    })
-  return toast.present()
-}
-
 function signOut() {
   localStorage.removeItem('account')
   account.value = null
-}
-
-function resetResultId() {
-  if (account.value === null) {
-    return
-  }
-  account.value.summary.job_num -= 5
-  localStorage.setItem('account', JSON.stringify(account.value))
-  console.log(account.value)
-}
-
-function resetExpiresIn() {
-  if (account.value === null) {
-    return
-  }
-  account.value.expires_in = 0
-  localStorage.setItem('account', JSON.stringify(account.value))
-  console.log(account.value)
 }
 
 async function getCookie() {

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { IonContent, IonList, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
+import { IonContent, IonList } from '@ionic/vue';
 import { onMounted, Ref, ref } from 'vue';
-import { Player } from '../@types/stats'
+import { SalmonStats } from 'types/stats'
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import PlayerResult from './PlayerResult.vue';
 import PlayerOverview from './PlayerOverview.vue';
-import CoopResult from '../CoopResult.vue';
-import CoopResults from '../CoopResults.vue';
+
+type Player = SalmonStats.Player
 
 enum ViewType {
   Overview = "overview",
@@ -22,7 +22,6 @@ onMounted(() => {
   const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
   const { player_id } = useRoute().params
   const { nsaid } = JSON.parse(localStorage.getItem('account') ?? "{}")
-
   const url = `${baseURL}/players/${player_id ?? nsaid}`
 
   fetch(url)
@@ -31,11 +30,6 @@ onMounted(() => {
       player.value = res
     })
 })
-
-function segmentChanged(event: CustomEvent) {
-  const index = Object.values(ViewType).indexOf(event.detail.value)
-  viewType.value = index === 0 ? ViewType.Overview : ViewType.Results
-}
 </script>
 
 <template>
