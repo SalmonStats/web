@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { IonPage, IonContent, IonFab, IonFabButton, IonIcon, toastController, onIonViewDidEnter, IonItem, IonButton } from '@ionic/vue';
+import { IonPage, IonContent, IonFab, IonFabButton, IonIcon, toastController, onIonViewDidEnter } from '@ionic/vue';
 import { syncOutline } from 'ionicons/icons';
 import CoopHeader from '@/components/CoopHeader.vue';
 import PlayerView from '@/components/Player/PlayerView.vue';
-import { APIError, SplatNet2 } from './SignInView.vue';
 import axios, { AxiosError } from 'axios';
 import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n'
+import { OAuth } from '@/types/oauth';
+
+type SplatNet2 = OAuth.SplatNet2
 
 const { t, availableLocales, locale } = useI18n()
 const inProgress: Ref<boolean> = ref<boolean>(false)
@@ -74,7 +76,7 @@ async function getResults() {
       localStorage.setItem('account', JSON.stringify(account.value))
     }
   } catch (error) {
-    const { error_description, errorMessage } = (error as AxiosError).response?.data as APIError
+    const { error_description, errorMessage } = (error as AxiosError).response?.data as OAuth.APIError
     toast.message = error_description ?? errorMessage
     await new Promise(f => setTimeout(f, 3000));
     toast.dismiss()
