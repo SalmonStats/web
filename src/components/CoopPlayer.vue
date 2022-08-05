@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { IonItem, IonGrid, IonRow, IonCol, IonImg } from '@ionic/vue';
-import { CoopResult } from '@types/result';
-import { weaponURL, specialURL } from '@types/function';
-// import { sum } from './math/array'
+import { CoopResult } from "types/coop";
+import "@/math/array"
+import { weaponURL, specialURL } from "@/functions"
 
 type Result = CoopResult.PlayerResult
 
