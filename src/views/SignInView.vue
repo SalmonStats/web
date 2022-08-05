@@ -4,40 +4,11 @@ import { useI18n } from 'vue-i18n'
 import CoopHeader from '@/components/CoopHeader.vue';
 import { onMounted, ref, Ref } from 'vue';
 import axios, { AxiosError } from "axios";
+import { OAuth } from '@/components/@types/oauth';
 
-export interface CoopSummary {
-  golden_ikura_total: number
-  ikura_total: number
-  help_total: number
-  job_num: number
-  kuma_point: number
-  kuma_point_total: number
-}
-
-export interface APIError {
-  error: string;
-  error_description: string;
-  errorMessage: string;
-}
-
-export interface SplatNet2 {
-  nickname: string;
-  nsaid: string;
-  session_token: string;
-  iksm_session: string;
-  thumbnail_url: string;
-  expires_in: number;
-  friend_code: string
-  summary: CoopSummary
-}
-
-interface OAuth {
-  oauthURL: string;
-  session_token_verifier: string;
-}
 
 const { t, availableLocales, locale } = useI18n()
-const account: Ref<SplatNet2 | null> = ref<SplatNet2>((() => {
+const account: Ref<OAuth.SplatNet2 | null> = ref<OAuth.SplatNet2>((() => {
   const account = localStorage.getItem('account')
   if (account) {
     return JSON.parse(account)
@@ -53,7 +24,7 @@ async function getOAuthURL() {
   const url = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}/authorize`;
   const { session_token_verifier, oauthURL } = (await (
     await fetch(url)
-  ).json()) as OAuth;
+  ).json()) as OAuth.OAuth;
   verifier.value = session_token_verifier;
   window.open(oauthURL, '_blank');
 }
@@ -100,7 +71,7 @@ async function getCookie() {
   try {
     const response = JSON.stringify((await axios.post(url, parameters)).data);
     localStorage.setItem('account', response)
-    account.value = JSON.parse(response) as SplatNet2
+    account.value = JSON.parse(response) as OAuth.SplatNet2
 
     const toast = await toastController
       .create({
@@ -110,7 +81,7 @@ async function getCookie() {
     inProgress.value = false
     return toast.present()
   } catch (error) {
-    const { error_description, errorMessage } = ((error as AxiosError).response?.data as APIError)
+    const { error_description, errorMessage } = ((error as AxiosError).response?.data as OAuth.APIError)
     const toast = await toastController
       .create({
         message: error_description ?? errorMessage,

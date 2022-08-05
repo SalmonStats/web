@@ -3,7 +3,7 @@ import {
   IonItem, IonAvatar, IonImg, IonLabel, IonIcon, IonItemGroup
 } from '@ionic/vue';
 import { useI18n } from 'vue-i18n';
-import { Player } from '../@types/player'
+import { Player } from '../@types/stats'
 import { sparklesOutline, informationCircle } from 'ionicons/icons';
 
 const { t } = useI18n()

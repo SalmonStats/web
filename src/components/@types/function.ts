@@ -128,3 +128,14 @@ export function stageName(stage_id: number): string {
 
   return StageName[stage_id];
 }
+
+export function specialURL(special_id: number): string {
+  const SpecialType: { [name: number]: string } = {
+    2: "assets/images/special/18990f646c551ee77c5b283ec814e371f692a553.png",
+    7: "assets/images/special/7af300fdd872feb27b3d8e68a969457fac8b3bb7.png",
+    8: "assets/images/special/9871c82952ed0141be0310ace1942c9f5f66d655.png",
+    9: "assets/images/special/324d41e9582d84101152849bc8c96d6595c9b0ff.png",
+  };
+
+  return SpecialType[special_id];
+}

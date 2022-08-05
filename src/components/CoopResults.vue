@@ -3,8 +3,11 @@ import { onMounted, Ref, ref } from 'vue';
 import { IonList, IonContent, IonItemGroup, IonRefresher, IonRefresherContent, IonInfiniteScroll, IonInfiniteScrollContent, InfiniteScrollCustomEvent } from '@ionic/vue';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n'
-import { Result, Results } from './@types/response';
+import { CoopResult } from './@types/result';
 import CoopOverview from './CoopOverview.vue';
+import { Paginated } from './@types/common';
+
+type Result = CoopResult.Result
 
 const { t } = useI18n()
 const results: Ref<Result[]> = ref([]);
@@ -22,7 +25,7 @@ const url = (() => {
 onMounted(() => {
   fetch(url)
     .then(res => res.json())
-    .then((res: Results) => {
+    .then((res: Paginated<Result>) => {
       results.value = res.results;
     });
 });
@@ -31,7 +34,7 @@ function onRefresh(event: CustomEvent) {
   setTimeout(() => {
     fetch(url)
       .then(res => res.json())
-      .then((res: Results) => {
+      .then((res: Paginated<Result>) => {
         results.value = res.results;
       });
     event.detail.complete();
@@ -50,7 +53,7 @@ function getResults(event: InfiniteScrollCustomEvent) {
   setTimeout(() => {
     fetch(url)
       .then(res => res.json())
-      .then((res: Results) => {
+      .then((res: Paginated<Result>) => {
         res.results.forEach(result => {
           results.value.push(result)
         })

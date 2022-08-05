@@ -44,7 +44,9 @@ function getPlayers() {
     <CoopHeader title="Search" />
     <ion-content :fullscreen="true">
       <ion-item>
-        <ion-input :placeholder="t('messages.input_username')" :autofocus="true" v-model="inputText"></ion-input>
+        <ion-input :placeholder="t('messages.input_username')" :autofocus="true" v-model="inputText"
+          v-on:keyup.enter="getPlayers">
+        </ion-input>
         <ion-button @click="getPlayers">{{ t("messages.search") }}</ion-button>
       </ion-item>
       <PlayerList :players="players" />

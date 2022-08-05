@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IonContent, IonList, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
 import { onMounted, Ref, ref } from 'vue';
-import { Player } from '../@types/player'
+import { Player } from '../@types/stats'
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import PlayerResult from './PlayerResult.vue';
