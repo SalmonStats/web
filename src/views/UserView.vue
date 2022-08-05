@@ -9,20 +9,6 @@ import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n'
 
-enum Status {
-  Updated = "updated",
-  Created = "created"
-}
-
-interface Result {
-  salmon_id: number
-  status: Status
-}
-
-interface Results {
-  results: Result[]
-}
-
 const { t, availableLocales, locale } = useI18n()
 const inProgress: Ref<boolean> = ref<boolean>(false)
 const account: Ref<SplatNet2 | null> = ref<SplatNet2>((() => {

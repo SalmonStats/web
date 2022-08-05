@@ -9,3 +9,10 @@ export interface Paginated<T> {
   /** 取得結果 */
   results: T[];
 }
+
+export interface PlayerRank {
+  rank: number;
+  shifts_worked: number;
+  nsaid: string;
+  thumbnail_url?: string;
+}

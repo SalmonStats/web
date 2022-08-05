@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IonIcon, IonItem, IonRow, IonCol, IonGrid } from '@ionic/vue';
-import { StageResult } from '../@types/player'
+import { StageResult } from '../@types/stats'
 import { useI18n } from 'vue-i18n';
 import { sunnyOutline, moonOutline } from 'ionicons/icons';
 
