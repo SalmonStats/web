@@ -13,7 +13,7 @@ const props = defineProps<{
 
 <template>
   <ion-list>
-    <template v-for="player in props.players" :key="player.nsaid">
+    <template v-for="player in props.players" :key="player.nsaid+player.nickname">
       <ion-item button :router-link="`/users/${player.nsaid}`">
         <ion-avatar slot="start">
           <ion-img :src="player.thumbnail_url"></ion-img>
