@@ -20,11 +20,18 @@ const { t } = useI18n()
 const inputText: Ref<string> = ref<string>("");
 const players: Ref<Player[]> = ref<Player[]>([]);
 
-function getPlayers() {
-  const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
-  if (inputText.value.length === 0) {
+function getPlayers(event: KeyboardEvent) {
+  if (event.code !== 'Enter') {
     return
   }
+
+  if (inputText.value.length === 0) {
+    players.value = []
+    return
+  }
+
+  const baseURL = `${process.env.VUE_APP_SERVER_URL}/${process.env.VUE_APP_SERVER_API_VER}`;
+  // inputText.value = event.data
   const parameters = {
     "offset": 0,
     "limit": 25,
@@ -45,9 +52,9 @@ function getPlayers() {
     <ion-content :fullscreen="true">
       <ion-item>
         <ion-input :placeholder="t('messages.input_username')" :autofocus="true" v-model="inputText"
-          v-on:keyup.enter="getPlayers">
+          @keyup="getPlayers($event)">
         </ion-input>
-        <ion-button @click="getPlayers">{{ t("messages.search") }}</ion-button>
+        <!-- <ion-button @click="getPlayers">{{ t("messages.search") }}</ion-button> -->
       </ion-item>
       <PlayerList :players="players" />
     </ion-content>
