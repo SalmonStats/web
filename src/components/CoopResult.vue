@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { onMounted, Ref, ref } from 'vue';
 import { IonList, IonItem, IonLabel, IonContent, IonListHeader, IonItemGroup, IonGrid, IonRow, IonCol } from '@ionic/vue';
-import { Result } from '@types/result';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import CoopSchedule from './CoopSchedule.vue';
 import CoopPlayer from './CoopPlayer.vue';
+import CoopDefeated from './CoopDefeated.vue';
+import { CoopResult } from '@/types/coop';
 
+type Result = CoopResult.Result
 const result: Ref<Result | undefined> = ref<Result>();
 const route = useRoute()
 const { t } = useI18n()
@@ -28,11 +30,6 @@ onMounted(() => {
   <ion-content>
     <ion-list>
       <CoopSchedule :schedule="result?.schedule" v-if="result !== undefined" />
-      <ion-list-header>
-        <ion-label>
-          <h2>Waves</h2>
-        </ion-label>
-      </ion-list-header>
       <ion-item-group>
         <template v-for="wave in result?.waves" :key="wave.id">
           <ion-item>
@@ -47,21 +44,14 @@ onMounted(() => {
           </ion-item>
         </template>
       </ion-item-group>
-      <ion-list-header>
-        <ion-label>
-          <h2>Players</h2>
-        </ion-label>
-      </ion-list-header>
       <ion-item-group>
         <template v-for="player in result?.players" :key="player.nsaid">
           <CoopPlayer :player="player" />
         </template>
       </ion-item-group>
-      <ion-list-header>
-        <ion-label>
-          <h2>Boss</h2>
-        </ion-label>
-      </ion-list-header>
+      <ion-item-group v-if="result !== undefined">
+        <CoopDefeated :result="result" />
+      </ion-item-group>
     </ion-list>
   </ion-content>
 </template>

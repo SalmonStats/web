@@ -86,6 +86,23 @@ export function specialURL(special_id: number): string {
   return baseURL + SpecialType[special_id];
 }
 
+export function bossURL(salmon_id: number): string {
+  const baseURL = "assets/images/bundle/";
+  const SalmonType: { [name: number]: string } = {
+    0: "9b2673de42f00d4fd836bd4684741505.png",
+    1: "337dde2c83705a75263aefdc15740f1c.png",
+    2: "631ea65c8cc2d9fd04f6c7458914d030.png",
+    3: "79d75f769115befab060b27401538402.png",
+    4: "2466752cf11ef6326e2add430101bff6.png",
+    5: "862656b37d071e75ad31750c9e18ed15.png",
+    6: "367e6e1c33ab3ae2a1c857f4c75f017e.png",
+    7: "7f8e44737240e3caa52d6c4f457164d9.png",
+    8: "7ecdec1e23a3d0089b38038b0217827c.png",
+  };
+
+  return baseURL + SalmonType[salmon_id];
+}
+
 export function stageName(stage_id: number): string {
   const StageName: { [name: number]: string } = {
     5000: "Spawning Grounds",
