@@ -27,12 +27,14 @@ const props = defineProps<{
           </ion-row>
         </ion-col>
         <ion-col size="auto">
+          <ion-row class="ion-justify-content-end">{{ player.grade_point ?? "-" }}</ion-row>
           <ion-row class="ion-justify-content-end num golden-ikura">{{ props.player.golden_ikura_num }}</ion-row>
-          <ion-row class="ion-justify-content-end num ikura">{{ props.player.ikura_num }}</ion-row>
+          <ion-row class="ion-justify-content-end num ikura">{{ props.player.help_count }}</ion-row>
         </ion-col>
         <ion-col size="auto" style="min-width:40px;">
-          <ion-row class="ion-justify-content-end">{{ player.grade_point ?? "-" }}</ion-row>
           <ion-row class="ion-justify-content-end num ikura">{{ player.boss_kill_counts.sum() }}</ion-row>
+          <ion-row class="ion-justify-content-end num ikura">{{ props.player.ikura_num }}</ion-row>
+          <ion-row class="ion-justify-content-end num ikura">{{ props.player.dead_count }}</ion-row>
         </ion-col>
       </ion-row>
     </ion-grid>
