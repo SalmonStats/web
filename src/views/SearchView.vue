@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { IonPage, IonContent, IonInput, IonItem, IonButton } from '@ionic/vue';
-import { syncOutline } from 'ionicons/icons';
+import { IonPage, IonContent, IonSearchbar, IonItem, IonButton, isPlatform, IonLabel } from '@ionic/vue';
 import CoopHeader from '@/components/CoopHeader.vue';
-import PlayerView from '@/components/Player/PlayerView.vue';
-import { APIError, SplatNet2 } from './SignInView.vue';
 import axios, { AxiosError } from 'axios';
-import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n'
 import PlayerList from '@/components/PlayerList.vue';
@@ -19,6 +15,11 @@ export interface Player {
 const { t } = useI18n()
 const inputText: Ref<string> = ref<string>("");
 const players: Ref<Player[]> = ref<Player[]>([]);
+
+function addValue(event: KeyboardEvent) {
+  console.log(event)
+
+}
 
 function getPlayers(event: KeyboardEvent) {
   if (event.code !== 'Enter') {
@@ -34,7 +35,7 @@ function getPlayers(event: KeyboardEvent) {
   // inputText.value = event.data
   const parameters = {
     "offset": 0,
-    "limit": 25,
+    "limit": 100,
     "nickname": inputText.value
   }
   const url = `${baseURL}/players`
@@ -50,12 +51,8 @@ function getPlayers(event: KeyboardEvent) {
   <ion-page>
     <CoopHeader title="Search" />
     <ion-content :fullscreen="true">
-      <ion-item>
-        <ion-input :placeholder="t('messages.input_username')" :autofocus="true" v-model="inputText"
-          @keyup="getPlayers($event)">
-        </ion-input>
-        <!-- <ion-button @click="getPlayers">{{ t("messages.search") }}</ion-button> -->
-      </ion-item>
+      <ion-searchbar enterkeyhint="search" v-model="inputText" input="text" placeholder="まちカドえむいー"
+        @keyup.enter="getPlayers"></ion-searchbar>
       <PlayerList :players="players" />
     </ion-content>
   </ion-page>
